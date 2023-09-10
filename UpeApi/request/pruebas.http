@@ -1,0 +1,16 @@
+@api=http://192.168.18.73:3000
+
+
+GET {{api}}/estudiantes
+
+###
+
+POST {{api}}/cubiculos/edit
+Content-Type: application/json
+
+{
+    "id":2,
+    "nombre": "cubiculo 321",
+    "capacidad":7,
+    "estado":1
+}
