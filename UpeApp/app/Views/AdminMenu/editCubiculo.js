@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { Switch, Text, View, TextInput,TouchableOpacity } from 'react-native';
+import { Switch, Text, Image,View, TextInput,TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { SearchBar } from '@rneui/themed';
 import MainScreenStyles from '../MainMenu/styles';
@@ -7,11 +7,11 @@ import SharedStyles from '../Shared';
 
 function EditCubiculo(route) {
     const navigationN = useNavigation();
-    const cub = route.route.params
-    const [textNombre, setNombre] = useState(cub.nombre);
-    const [textCapacidad, setCapacidad] = useState(""+cub.capacidad);
+    const prod = route.route.params
+    const [textNombre, setNombre] = useState(prod.Nombre);
+    const [textCapacidad, setCapacidad] = useState(""+prod.Costo);
 
-    const [isEnabled, setIsEnabled] = useState("Ocupado" == cub.estado ? false : true);
+    const [isEnabled, setIsEnabled] = useState("Ocupado" == prod.estado ? false : true);
     const toggleSwitch = () => setIsEnabled(previousState => !previousState);
     const pEstado = useState(isEnabled ? 1 : 0);
     
@@ -25,7 +25,7 @@ function EditCubiculo(route) {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                id:cub.idCubiculo,
+                id:prod.IDProducto,
                 capacidad:textCapacidad,
                 nombre:textNombre,
                 estado:pEstado[0]
@@ -44,15 +44,15 @@ function EditCubiculo(route) {
             <View style={MainScreenStyles.appHeader}>
 
             </View>
-            <Text style={{ textAlign: 'center', paddingBottom: 25, fontSize: 40, fontWeight: 'bold', color: 'white' }}>CubículosTEC</Text>
+            <Text style={{ textAlign: 'center', paddingBottom: 25, paddingTop: 25, fontSize: 40, fontWeight: 'bold', color: '#0D5C63' }}>Edición de producto</Text>
 
 
             <View style={MainScreenStyles.pageView}>
 
-                <Text style={MainScreenStyles.titulo}>Editar Cubiculo</Text>
+                <Text style={MainScreenStyles.titulo}>Editar producto</Text>
                 <View style={{ alignItems: 'center', justifyContent: 'space-around', }}>
 
-                    <Text style={{ fontSize: 30, fontWeight: 'bold', marginBottom: 30 }}>Nombre :</Text>
+                    <Text style={{ fontSize: 20, fontWeight: 'bold', marginBottom: 30, color:'#AAAAAA' }}>Nombre del producto:</Text>
                     <TextInput
                         id="nombre"
                         style={MainScreenStyles.input}
@@ -60,7 +60,7 @@ function EditCubiculo(route) {
                         value={textNombre}
                         placeholderTextColor="black"
                     />
-                    <Text style={{ fontSize: 30, fontWeight: 'bold', marginTop: 40, marginBottom: 30 }}>Capacidad :</Text>
+                    <Text style={{ fontSize: 30, fontWeight: 'bold', marginTop: 40, marginBottom: 30, color:'#AAAAAA'}}>Tipo:</Text>
                     <TextInput
                         keyboardType={"numeric"}
                         style={MainScreenStyles.intInput}
@@ -68,17 +68,19 @@ function EditCubiculo(route) {
                         value={textCapacidad}
                         placeholderTextColor="black"
                     />
-                    <Text style={{ fontSize: 30, fontWeight: 'bold', marginTop: 40 }}>Estado : {isEnabled? "Libre" : "Ocupado"}</Text>
-                    <Switch
-                        trackColor={'#81b0ff'}
-                        thumbColor={'#f4f3f4'}
-                        onValueChange={toggleSwitch}
-                        value={isEnabled}
+
+                    <Text style={{ fontSize: 30, fontWeight: 'bold', marginTop: 40, marginBottom: 30, color:'#AAAAAA'}}>Detalles :</Text>
+                    <TextInput
+                        keyboardType={"numeric"}
+                        style={MainScreenStyles.intInput}
+                        onChangeText={newText => setCapacidad(newText)}
+                        value={textCapacidad}
+                        placeholderTextColor="black"
                     />
 
                     <TouchableOpacity onPress={realizarCambios}>
                         <View style={MainScreenStyles.buttonAcept}>
-                            <Text style={{ fontSize: 20, color: "white" }}>Confirmar</Text>
+                            <Text style={{ fontSize: 20, color: "white" }}>Guardar información</Text>
                         </View>
                     </TouchableOpacity>
 

@@ -10,9 +10,9 @@ const MainScreenStyles = StyleSheet.create({
     },
     buttonAcept: {
       borderRadius: 8,
-      padding: 20,
+      padding: 12,
       alignItems: 'center',
-      backgroundColor: "blue"
+      backgroundColor: "#0D5C63"
     },
     buttonDelete: {
       borderRadius: 8,
@@ -31,12 +31,12 @@ const MainScreenStyles = StyleSheet.create({
   //    justifyContent: 'center',
     },
     cubContainer: {
-      padding: 20,
+      padding: 15,
       marginTop: 15,
       alignSelf: "center",
       width:'90%',
-      borderRadius: 10,
-      backgroundColor: "white",
+      borderRadius: 20,
+      backgroundColor: "#EAEAEA",
 
 
   //    justifyContent: 'center',

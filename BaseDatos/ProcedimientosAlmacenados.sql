@@ -142,8 +142,9 @@ END;
 CREATE OR ALTER PROCEDURE consultarProductos
 AS
 BEGIN
-SELECT Nombre,Costo,Detalles,Fotografia,IDTipo
+SELECT Producto.Nombre AS Nombre,Costo,Detalles,Fotografia,IDTipo, TipoProducto.Nombre AS Tipo
 FROM Producto
+INNER JOIN TipoProducto ON Producto.IDTipo = TipoProducto.IDTipoProducto
 END;
 
 
@@ -216,10 +217,11 @@ VALUES (@pIDZona,@pIDVendedor,(SELECT CAST( GETDATE() AS Date )))
 END;
 ---------------------------------------------------------------|Eliminar|-----------------------------------------------------------------------------------
 CREATE OR ALTER PROCEDURE eliminarZonaAVendedor
-@pIDZona INT
+@pIDZona INT,
+@pIDVendedor INT 
 AS
 BEGIN
-DELETE FROM ZonasPorVendedor WHERE IDZona = @pIDZona
+DELETE FROM ZonasPorVendedor WHERE IDZona = @pIDZona AND IDVendedor=@pIDVendedor
 END;
 ---------------------------------------------------------------|Consultar|-----------------------------------------------------------------------------------
 CREATE OR ALTER PROCEDURE consultarZonasAVendedor
@@ -237,4 +239,12 @@ END;
 -------------------------------------------------------------LOGIN----------------------------------------------------------------------
 
 
-
+CREATE OR ALTER PROCEDURE iniciarSesion
+@pCorreoElectronico VARCHAR(30),
+@pContrasena VARCHAR(30)
+AS
+BEGIN
+SELECT Nombres,Apellidos,CorreoElectronico,Contacto,Facebook,Instagram,Fotografia
+FROM Vendedor
+WHERE CorreoElectronico = @pCorreoElectronico AND Contrasena = @pContrasena
+END;

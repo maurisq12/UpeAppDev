@@ -13,7 +13,7 @@ function GestCubiculos(props) {
     const [lista, setLista] = useState([])
 
     const [loading, setLoading] = useState(true)
-    const url = "http://192.168.18.10:3000/cubiculos";
+    const url = "https://upeapp.fly.dev/productos/todos";
 
     useEffect(() => {
         fetch(url)
@@ -85,19 +85,19 @@ function GestCubiculos(props) {
             <View style={MainScreenStyles.appHeader}>
 
             </View>
-            <Text style={{ textAlign: 'center', paddingBottom: 25, fontSize: 40, fontWeight: 'bold', color: 'white' }}>CubículosTEC</Text>
+            <Text style={{ textAlign: 'center', paddingBottom: 25, fontSize: 40, fontWeight: 'bold', color: '#0D5C63' }}>Tus productos</Text>
 
 
             <View style={MainScreenStyles.pageView}>
 
-                <Text style={MainScreenStyles.titulo}>Gestión de Cubiculos</Text>
+                <Text style={{ textAlign: 'left',paddingBottom:25,paddingLeft:25, fontSize:20,fontWeight:'bold',color:'#0D5C63' }}>Administrar productos</Text>
                 <View style={{ width: "90%", alignSelf: "center" }}>
                     <SearchBar
                         placeholderTextColor={"black"}
                         inputStyle={{ color: "black" }}
                         searchIcon={{ color: "black" }}
                         cancelIcon={{ color: "black" }}
-                        containerStyle={{ borderRadius: 10, backgroundColor: "white", borderBottomColor: "white", borderTopColor: "white" }}
+                        containerStyle={{ borderRadius: 10, backgroundColor: "#0D5C63", borderBottomColor: "white", borderTopColor: "white" }}
                         inputContainerStyle={{ backgroundColor: SharedStyles.colorBG }}
                         placeholder="Buscar..."
                         onChangeText={newText => filtrarLista(newText)}
@@ -110,17 +110,13 @@ function GestCubiculos(props) {
                         loading ? (<Text> Cargando... </Text>) : (
                             lista.map((post) => (
                                 <View style={MainScreenStyles.cubContainer}  key={post.idCubiculo}>
-                                    <Text style={{ fontSize: 30, fontWeight: 'bold' }}>{post.nombre}</Text>
-                                    <Text style={{ fontSize: 20 }}>Capacidad: {post.capacidad}</Text>
+                                    <Text style={{ fontSize: 30, fontWeight: 'bold' }}>{post.Nombre}</Text>
+                                    <Text style={{ fontSize: 20 }}>₡{post.Costo}</Text>
+                                    <Text style={{ fontSize: 20 }}>{post.Tipo}</Text>
                                     <View style={{ marginTop: 15, flexDirection: "row", alignSelf: "center", justifyContent: "space-between", width: "80%" }}>
                                         <TouchableOpacity onPress={() => navigationN.navigate("EditCubiculo",post)}>
                                             <View style={MainScreenStyles.buttonAcept}>
-                                                <Text style={{ fontSize: 20, color: "white" }}>Editar</Text>
-                                            </View>
-                                        </TouchableOpacity>
-                                        <TouchableOpacity onPress={() => alertaEliminar(post.nombre,post.idCubiculo)}>
-                                            <View style={MainScreenStyles.buttonDelete}>
-                                                <Text style={{ fontSize: 20, color: "white" }}>Eliminar</Text>
+                                                <Text style={{ fontSize: 20, color: "white", alignContent:'center'}}>Editar</Text>
                                             </View>
                                         </TouchableOpacity>
                                     </View>

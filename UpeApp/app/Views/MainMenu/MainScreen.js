@@ -11,6 +11,10 @@ function MainScreen(props) {
    // navigationN.navigate("");
   }
 
+  function navGestCub() {
+    navigationN.navigate("GestCubiculos");
+  }
+
   function botonListaApartados() {
     //navigationN.navigate("T");
   }
@@ -35,29 +39,35 @@ function MainScreen(props) {
             <View style={MainScreenStyles.button}>
               <Text style={MainScreenStyles.buttonText}>Mi perfil</Text>
               <Image
-            source={{
-              uri:
-                'https://raw.githubusercontent.com/AboutReact/sampleresource/master/facebook.png',
-            }}
-          />
+            source={require(('../Media/miPerfil.png'))}
+            style={{height: '100%',resizeMode: 'contain'}}/>
             </View>
           </TouchableOpacity>
 
-          <TouchableOpacity onPress={botonListaApartados}>
+          <TouchableOpacity onPress={navGestCub}>
             <View style={MainScreenStyles.button}>
               <Text style={MainScreenStyles.buttonText}>Mis productos</Text>
+              <Image
+            source={require(('../Media/misProductos.png'))}
+            style={{ height: '100%',resizeMode: 'contain'}}/>
             </View>
           </TouchableOpacity>
 
           <TouchableOpacity onPress={botonAdmin}>
             <View style={MainScreenStyles.button}>
               <Text style={MainScreenStyles.buttonText}>Mis zonas</Text>
+              <Image
+            source={require(('../Media/misZonas.png'))}
+            style={{ height: '100%',resizeMode: 'contain'}}/>
             </View>
           </TouchableOpacity>
 
           <TouchableOpacity onPress={botonAdmin}>
             <View style={MainScreenStyles.button}>
               <Text style={MainScreenStyles.buttonText}>Ajustes</Text>
+              <Image
+            source={require(('../Media/ajustes.png'))}
+            style={{width:'20%', height: '100%',resizeMode: 'contain'}}/>
             </View>
           </TouchableOpacity>
         </View>
