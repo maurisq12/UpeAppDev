@@ -23,8 +23,8 @@ function LoginScreen(props) {
         <KeyboardAvoidingView style={loginStyle.container}>
           <View style={loginStyle.inner}> 
             <View style={loginStyle.banner}> 
-            <Image source={require('../Media/logoC.png')} style={{width:'50%',height:'60%', alignSelf:'center', tintColor: '#202021'}}/>
-            <Text style={{ textAlign: 'center',paddingTop:10, fontSize:40,fontWeight:'bold',color:'black' }}>CubículosTEC</Text>
+            <Image source={require('../Media/logoUpeApp.png')} style={{width:'100%',height:'60%', alignSelf:'center',resizeMode: 'contain'}}/>
+            <Text style={{ textAlign: 'center',paddingTop:50, fontSize:15,fontWeight:'bold',color:'#0D5C63' }}>Ingrese los datos para acceder a su cuenta de vendedor</Text>
             </View>
             <View style={loginStyle.buttonView}>
             <TextInput ref={this.correoBoton}
@@ -32,7 +32,7 @@ function LoginScreen(props) {
               onChangeText={newCorreo => setCorreo(newCorreo)}
               defaultValue={correo}
               placeholder="Correo electrónico"
-              placeholderTextColor = "black"
+              placeholderTextColor = "#0D5C63"
             />
             <TextInput ref={this.contrasenaBoton}
               secureTextEntry={true}
@@ -41,7 +41,7 @@ function LoginScreen(props) {
               defaultValue={contrasena}
               placeholder="Contraseña"
               width= '90%'
-              placeholderTextColor = "black"
+              placeholderTextColor = "#0D5C63"
             />
             <View style={{paddingBottom:30, alignItems:'center'}}>
             <TouchableOpacity  onPress={loginPressed}>
@@ -52,9 +52,9 @@ function LoginScreen(props) {
 
               <View style={{width:300, marginTop:0, paddingBottom:30 , flexDirection: 'row', paddingTop:5}}>
              
-              <Text style={[loginStyle.buttonText,{fontWeight:'normal',fontSize:18,paddingLeft:30, paddingRight:0, color:'black'}]}>¿No tienes una cuenta? </Text>
+              <Text style={[loginStyle.buttonText,{fontWeight:'normal',fontSize:18,paddingLeft:30, paddingRight:0, color:'black'}]}>¿No tienes una cuenta? {'\n'} </Text>
                 <TouchableOpacity onPress={registerPressed}>
-                    <Text style={[loginStyle.buttonText,{fontSize:20, paddingHorizontal:0, color:SharedStyles.colorDark }]}>Registrate</Text>
+                    <Text style={[loginStyle.buttonText,{fontSize:20, paddingHorizontal:0, color:"#0D5C63" }]}>Registrate</Text>
                 </TouchableOpacity>
                 </View>
                 </View>

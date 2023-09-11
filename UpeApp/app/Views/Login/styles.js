@@ -23,14 +23,14 @@ const loginStyle = StyleSheet.create({
       width: 260,
       paddingEnd: 10,
       alignItems: 'center',
-      backgroundColor:SharedStyles.colorDef
+      backgroundColor:"#0D5C63"
     },
     buttonText: {
       textAlign: 'center',
       fontWeight:'bold',
       padding: 10,
       fontSize: SharedStyles.buttonsSizeFont,
-      color: 'white'
+      color: '#FFFFFF'
     },
   
       container: {

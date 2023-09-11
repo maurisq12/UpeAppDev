@@ -1,7 +1,7 @@
 const SharedStyles = {
-    colorDef : '#00abe4',
-    colorBG: '#e3f2f2',
-    colorDark: '#004879',
+    colorDef : '#FFFFFF',
+    colorBG: '#FFFFFF',
+    colorDark: '#FFFFFF',
     buttonsSizeFont : 22
   };
 

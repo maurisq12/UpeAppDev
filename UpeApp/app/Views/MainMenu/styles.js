@@ -73,7 +73,7 @@ const MainScreenStyles = StyleSheet.create({
         height:100,
         alignItems: 'center',
         padding:15,
-        backgroundColor:"rgba(255,255,255,0.8)",
+        backgroundColor:"#0D5C63",
         flexDirection: 'row',
         marginVertical:10
         

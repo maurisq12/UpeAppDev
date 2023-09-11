@@ -25,7 +25,7 @@ function AdminMenu(props) {
       <View style={MainScreenStyles.container}>
         <View style={MainScreenStyles.banner}>
           <Image
-            source={require('../Media/logoC.png')}
+            source={require('../Media/logoUpeApp.png')}
             style={{width: '50%', height: '60%', tintColor: 'white', alignSelf:'center'}}
           />
         </View>

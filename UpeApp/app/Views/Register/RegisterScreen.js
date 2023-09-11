@@ -28,8 +28,8 @@ function registerPressed(){
     <KeyboardAvoidingView style={{flex:1}}>
     <View style={[loginStyle.container, {paddingTop: StatusBar.currentHeight,}]}>
           <View style={[loginStyle.banner,{paddingTop:30,paddingBottom:30}]}> 
-            <Image source={require('../Media/logoC.png')} style={{width:'45%',height:'70%', alignSelf:'center', tintColor: '#202021'}}/>
-            <Text style={{ textAlign: 'center',paddingTop:15, fontSize:40,fontWeight:'bold',color:'black' }}>CubículosTEC</Text>
+            <Image source={require('../Media/logoUpeApp.png')} style={{width:'45%',height:'70%', alignSelf:'center', tintColor: '#202021'}}/>
+            <Text style={{ textAlign: 'center',paddingTop:15, fontSize:40,fontWeight:'bold',color:'black' }}>Upe App</Text>
      </View>
     <View style={[loginStyle.buttonView, {paddingTop:30}]}>
     <TextInput 
