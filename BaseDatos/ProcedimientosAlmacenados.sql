@@ -8,14 +8,15 @@ CREATE OR ALTER PROCEDURE agregarVendedor(
 @pNombres VARCHAR(40),
 @pApellidos VARCHAR(30),
 @pCorreoElectronico VARCHAR(30),
+@pContrasena VARCHAR(30),
 @pContacto INT,
 @pFacebook VARCHAR(30),
 @pInstagram VARCHAR(20),
 @pFotografia VARBINARY(100))
 AS
 BEGIN
-INSERT INTO Vendedor (Nombres,Apellidos,CorreoElectronico,Contacto,Facebook,Instagram,Fotografia)
-VALUES (@pNombres,@pApellidos,@pCorreoElectronico,@pContacto,@pFacebook,@pInstagram,@pFotografia)
+INSERT INTO Vendedor (Nombres,Apellidos,CorreoElectronico,Contrasena,Contacto,Facebook,Instagram,Fotografia)
+VALUES (@pNombres,@pApellidos,@pCorreoElectronico,@pContrasena,@pContacto,@pFacebook,@pInstagram,@pFotografia)
 END;
 ---------------------------------------------------------------|Editar|-----------------------------------------------------------------------------------
 CREATE OR ALTER PROCEDURE editarVendedor(
@@ -39,7 +40,7 @@ CREATE OR ALTER PROCEDURE eliminarVendedor
 @pIDVendedor INT
 AS
 BEGIN
-DELETE FROM Vendeor WHERE IDVendedor = @pIDVendedor
+DELETE FROM Vendedor WHERE IDVendedor = @pIDVendedor
 END;
 ---------------------------------------------------------------|Consultar|-----------------------------------------------------------------------------------
 CREATE OR ALTER PROCEDURE consultarVendedores
@@ -104,6 +105,7 @@ AS
 BEGIN
 INSERT INTO Producto (Nombre,Costo,Detalles,Fotografia,IDTipo)
 VALUES (@pNombre,@pCosto,@pDetalles,@pFotografia,@pIDTipo)
+SELECT SCOPE_IDENTITY() AS Agregado
 END;
 ---------------------------------------------------------------|Editar|-----------------------------------------------------------------------------------
 CREATE OR ALTER PROCEDURE editarProducto(
@@ -129,6 +131,15 @@ DELETE FROM Producto WHERE IDProducto = @pIDProducto
 END;
 ---------------------------------------------------------------|Consultar|-----------------------------------------------------------------------------------
 CREATE OR ALTER PROCEDURE consultarProducto
+@pIDProducto INT
+AS
+BEGIN
+SELECT Nombre,Costo,Detalles,Fotografia,IDTipo
+FROM Producto
+WHERE IDProducto = @pIDProducto
+END;
+
+CREATE OR ALTER PROCEDURE consultarProductos
 AS
 BEGIN
 SELECT Nombre,Costo,Detalles,Fotografia,IDTipo
@@ -138,30 +149,32 @@ END;
 
 -------------------------------------------------------------Zona-------------------------------------------------------------------------------------
 ---------------------------------------------------------------|Agregar|-----------------------------------------------------------------------------------
-CREATE OR ALTER PROCEDURE agregarZona(
-	 @pIDProvincia INT,
-	 @pIDCanton INT,
-	 @pIDDistrito INT)
+--Provincias
+CREATE OR ALTER PROCEDURE getProvincias
 AS
 BEGIN
-INSERT INTO Zona (IDProvincia,IDCanton,IDDistrito)
-VALUES (@pIDProvincia,@pIDCanton,@pIDDistrito)
+SELECT IDProvincia, Nombre 
+FROM Provincia
 END;
 
----------------------------------------------------------------|Eliminar|-----------------------------------------------------------------------------------
-CREATE OR ALTER PROCEDURE eliminarZona
-@pIDZona INT
+CREATE OR ALTER PROCEDURE getCantones
+@pIDProvincia INT
 AS
 BEGIN
-DELETE FROM Zona WHERE IDZona = @pIDZona
+SELECT IDCanton, Nombre 
+FROM Canton
+WHERE IDProvincia = @pIDProvincia
 END;
----------------------------------------------------------------|Consultar|-----------------------------------------------------------------------------------
-CREATE OR ALTER PROCEDURE consultarZona
+
+CREATE OR ALTER PROCEDURE getDistritos
+@pIDCanton INT
 AS
 BEGIN
-SELECT IDProvincia,IDCanton,IDDistrito
-FROM Zona
+SELECT IDDistrito, Nombre 
+FROM Distrito
+WHERE IDCanton = @pIDCanton
 END;
+
 
 -------------------------------------------------------------ProductosPorVendedor-------------------------------------------------------------------------------------
 ---------------------------------------------------------------|Agregar|-----------------------------------------------------------------------------------
@@ -195,11 +208,11 @@ END;
 ---------------------------------------------------------------|Agregar|-----------------------------------------------------------------------------------
 CREATE OR ALTER PROCEDURE agregarZonaAVendedor(
     @pIDZona INT,
-    @pIDVendedor int)
+    @pIDVendedor INT)
 AS
 BEGIN
-INSERT INTO ZonasPorVendedor (IDZona,IDVendedor)
-VALUES (@pIDZona,@pIDVendedor)
+INSERT INTO ZonasPorVendedor (IDZona,IDVendedor,FechaAgregado)
+VALUES (@pIDZona,@pIDVendedor,(SELECT CAST( GETDATE() AS Date )))
 END;
 ---------------------------------------------------------------|Eliminar|-----------------------------------------------------------------------------------
 CREATE OR ALTER PROCEDURE eliminarZonaAVendedor
@@ -213,8 +226,15 @@ CREATE OR ALTER PROCEDURE consultarZonasAVendedor
 @pIDVendedor INT
 AS
 BEGIN
-SELECT (IDZona)
+SELECT Distrito.Nombre AS Distrito, Canton.Nombre AS Canton, Provincia.Nombre AS Provincia, FechaAgregado
 FROM ZonasPorVendedor
+INNER JOIN Distrito ON ZonasPorVendedor.IDZona=Distrito.IDDistrito
+INNER JOIN Canton ON Distrito.IDCanton = Canton.IDCanton
+INNER JOIN Provincia ON Canton.IDProvincia = Provincia.IDProvincia
 WHERE IDVendedor=@pIDVendedor
 END;
+
+-------------------------------------------------------------LOGIN----------------------------------------------------------------------
+
+
 

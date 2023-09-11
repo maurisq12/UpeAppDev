@@ -4,7 +4,7 @@ export const getProducto = async (req, res) => {
     const {IDProducto} = req.body
     const con = await getConnection();
     const resp= await con.request()
-    .input('pIDProducto', sql.Int ,pIDProducto)
+    .input('pIDProducto', sql.Int ,IDProducto)
     .query("consultarProducto @pIDProducto");
     res.json(resp.recordset)
 }
@@ -25,34 +25,67 @@ export const agregarProducto = async (req,res) =>{
     }
 
     const pool = await getConnection();
-    pool.request()
+    const resp= await pool.request()
     .input('pNombre', sql.VarChar, Nombre)
     .input('pCosto',sql.Int,Costo)
     .input('pDetalles', sql.VarChar, Detalles)
     .input('pFotografia', sql.VarBinary, new Buffer.alloc(1))
     .input('pIDTipo',sql.Int,IDTipo)
     .query("agregarProducto @pNombre, @pCosto, @pDetalles, @pFotografia, @pIDTipo")
+    let IDAgregado = resp.recordset[0].Agregado;
+
+    pool.request()
+    .input('pIDProducto',sql.Int,IDAgregado)
+    .input('pIDVendedor',sql.Int,1)
+    .query("agregarProductoAVendedor @pIDProducto,@pIDVendedor")
 
     return res.status(200).json({msg:"Realizado"})
 }
 
 
-export const editarCubiculo = async (req,res) =>{
+export const modificarProducto = async (req,res) =>{
 
-    const {id,nombre,capacidad, estado} = req.body
+    const {IDProducto,Nombre,Costo, Detalles, Fotografia, IDTipo} = req.body
 
-    if(id==null || nombre==null || capacidad==null || estado==null){
+    if(IDProducto==null || Nombre==null || Costo==null || Detalles==null || Fotografia==null || IDTipo==null ){
         return res.status(400).json({msg:"Bad request. Please fill all fields"})
     }
 
     const pool = await getConnection();
     pool.request()
-    .input('idCubiculo',sql.Int,id)
-    .input('pNombre', sql.VarChar, nombre)
-    .input('pEstado',sql.SmallInt,estado)
-    .input('pCapacidad',sql.Int,capacidad)
-    .input('pTiempoMáximo',sql.Time, Date.parse("00:00:00"))
-    .query("modificarCubiculo @idCubiculo, @pNombre, @pEstado, @pCapacidad, @pTiempoMáximo")
+    .input('pIDProducto',sql.Int,IDProducto)
+    .input('pNombre', sql.VarChar, Nombre)
+    .input('pCosto',sql.Int,Costo)
+    .input('pDetalles', sql.VarChar, Detalles)
+    .input('pFotografia', sql.VarBinary, new Buffer.alloc(1))
+    .input('pIDTipo',sql.Int,IDTipo)
+    .query("editarProducto @pIDProducto ,@pNombre, @pCosto, @pDetalles, @pFotografia, @pIDTipo")
 
-    res.json('prueba')
+    return res.status(200).json({msg:"Realizado"})
 }
+
+export const eliminarProducto = async (req, res) => {
+
+    const {IDProducto} = req.body
+
+    if(IDProducto==null){
+        return res.status(400).json({msg:"Bad request. Please fill all fields"})
+    }
+
+    //eliminar producto del catalogo del vendedor
+    const con = await getConnection();
+    const resp= await con.request()
+    .input('pIDProducto',sql.Int,IDProducto)
+    .query("eliminarProductoAVendedor @pIDProducto");
+    res.json(resp.recordset)
+
+    //eliminar el producto de la bd
+    con.request()
+    .input('pIDProducto',sql.Int,IDProducto)
+    .query("eliminarProducto @pIDProducto");
+    res.json(resp.recordset)
+
+}
+
+
+

@@ -18,9 +18,9 @@ export const getVendedores = async (req, res) => {
 
 export const agregarVendedor = async (req,res) =>{
 
-    const {Nombres,Apellidos, CorreoElectronico, Contacto, Facebook, Instagram, Fotografia} = req.body
+    const {Nombres,Apellidos, CorreoElectronico,Contrasena, Contacto, Facebook, Instagram, Fotografia} = req.body
 
-    if(Nombres==null || Apellidos==null || CorreoElectronico==null || Contacto==null || Facebook==null || Instagram==null || Fotografia==null){
+    if(Nombres==null || Apellidos==null || Contrasena==null || CorreoElectronico==null || Contacto==null || Facebook==null || Instagram==null || Fotografia==null){
         return res.status(400).json({msg:"Bad request. Please fill all fields"})
     }
 
@@ -29,12 +29,13 @@ export const agregarVendedor = async (req,res) =>{
     .input('pNombres', sql.VarChar, Nombres)
     .input('pApellidos', sql.VarChar, Apellidos)
     .input('pCorreoElectronico', sql.VarChar, CorreoElectronico)
+    .input('pContrasena', sql.VarChar, Contrasena)
     .input('pContacto',sql.Int,Contacto)
     .input('pFacebook', sql.VarChar, Facebook)
     .input('pInstagram', sql.VarChar, Instagram)
     .input('pFotografia', sql.VarBinary, new Buffer.alloc(1))
     
-    .query("agregarVendedor @pNombres,@pApellidos, @pCorreoElectronico, @pContacto, @pFacebook, @pInstagram,@pFotografia")
+    .query("agregarVendedor @pNombres,@pApellidos, @pCorreoElectronico, @pContrasena, @pContacto, @pFacebook, @pInstagram,@pFotografia")
     return res.status(200).json({msg:"Realizado"})
 }
 
