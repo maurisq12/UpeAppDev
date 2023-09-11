@@ -9,7 +9,9 @@ function EditCubiculo(route) {
     const navigationN = useNavigation();
     const prod = route.route.params
     const [textNombre, setNombre] = useState(prod.Nombre);
-    const [textCapacidad, setCapacidad] = useState(""+prod.Costo);
+    const [textCosto, setCosto] = useState(""+prod.Costo);
+    const [textTipo, setTipo] = useState(""+prod.Tipo);
+    const [textDetalles, setDetalles] = useState(""+prod.Detalles);
 
     const [isEnabled, setIsEnabled] = useState("Ocupado" == prod.estado ? false : true);
     const toggleSwitch = () => setIsEnabled(previousState => !previousState);
@@ -17,18 +19,19 @@ function EditCubiculo(route) {
     
 
     function  realizarCambios(){
-        console.log("El estado es: "+pEstado);
-        fetch("http://192.168.18.73:3000/cubiculos/edit", {
+        fetch("https://upeapp.fly.dev/productos/edit", {
             method: "POST",
             headers: {
                 Accept: "application/json",
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                id:prod.IDProducto,
-                capacidad:textCapacidad,
-                nombre:textNombre,
-                estado:pEstado[0]
+                IDProducto:prod.IDProducto,
+                Nombre:textNombre,
+                Costo:textCosto,
+                Detalles:textDetalles,
+                Fotografia:1,
+                IDTipo:2
             }),
         })
             .then((response) => response.json())
@@ -64,8 +67,16 @@ function EditCubiculo(route) {
                     <TextInput
                         keyboardType={"numeric"}
                         style={MainScreenStyles.intInput}
-                        onChangeText={newText => setCapacidad(newText)}
-                        value={textCapacidad}
+                        onChangeText={newText => setTipo(newText)}
+                        value={textTipo}
+                        placeholderTextColor="black"
+                    />
+                    <Text style={{ fontSize: 30, fontWeight: 'bold', marginTop: 40, marginBottom: 30, color:'#AAAAAA'}}>Costo:</Text>
+                    <TextInput
+                        keyboardType={"numeric"}
+                        style={MainScreenStyles.intInput}
+                        onChangeText={newText => setCosto(newText)}
+                        value={textCosto}
                         placeholderTextColor="black"
                     />
 
@@ -73,10 +84,16 @@ function EditCubiculo(route) {
                     <TextInput
                         keyboardType={"numeric"}
                         style={MainScreenStyles.intInput}
-                        onChangeText={newText => setCapacidad(newText)}
-                        value={textCapacidad}
+                        onChangeText={newText => setDetalles(newText)}
+                        value={textDetalles}
                         placeholderTextColor="black"
                     />
+
+                    <TouchableOpacity onPress={realizarCambios}>
+                        <View style={MainScreenStyles.buttonAcept}>
+                            <Text style={{ fontSize: 20, color: "white" }}>Guardar información</Text>
+                        </View>
+                    </TouchableOpacity>
 
                     <TouchableOpacity onPress={realizarCambios}>
                         <View style={MainScreenStyles.buttonAcept}>
