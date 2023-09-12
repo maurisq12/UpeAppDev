@@ -11,15 +11,17 @@ const MainScreenStyles = StyleSheet.create({
     buttonAcept: {
       borderRadius: 8,
       padding: 12,
+      marginTop:25,
+      width:'100%',
       alignItems: 'center',
       backgroundColor: "#0D5C63"
     },
     buttonDelete: {
       borderRadius: 8,
-      padding: 20,
-
+      padding: 15,
+      marginTop:25,
       alignItems: 'center',
-      backgroundColor: "red"
+      backgroundColor: "#cc0000"
     },
     banner: {
       maxHeight:'35%',
@@ -90,22 +92,21 @@ const MainScreenStyles = StyleSheet.create({
         height: 50,
         width: '90%',
         paddingLeft:15,
-        borderRadius:10,
         backgroundColor:'white',
         fontSize: SharedStyles.buttonsSizeFont,
-        elevation: 20,
-        shadowColor: 'grey',
+        borderBottomColor: 'grey',
+        borderBottomWidth: 0.5,
+        textAlignVertical: "top"
   
       },
       intInput: {
         textAlign: "center",
         height: 50,
         width: '20%',
-        borderRadius:10,
         backgroundColor:'white',
         fontSize: SharedStyles.buttonsSizeFont,
-        elevation: 20,
-        shadowColor: 'grey',
+        borderBottomColor: 'grey',
+        borderBottomWidth: 0.5
   
       },
       titulo: {

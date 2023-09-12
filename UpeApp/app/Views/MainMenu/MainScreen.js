@@ -19,7 +19,7 @@ function MainScreen(props) {
     //navigationN.navigate("T");
   }
   function botonAdmin() {
-    navigationN.navigate("AdminMenu");
+    navigationN.navigate("Dropdown");
   }
 
 

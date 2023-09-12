@@ -1,5 +1,13 @@
 import { getConnection, sql } from '../database/connection.js'
 
+export const getTipoProducto = async (req, res) => {
+    const con = await getConnection();
+    const resp= await con.request()
+    .query("consultarTipoProducto");
+    res.json(resp.recordset)
+}
+
+
 export const getProducto = async (req, res) => {
     const {IDProducto} = req.body
     const con = await getConnection();

@@ -35,13 +35,14 @@ function GestCubiculos(props) {
     const [search, setSearch] = useState("");
 
     function filtrarLista(nombre) {
+        console.log(nombre)
         setSearch(nombre)
         nombre = nombre.toLowerCase();
-              const cubiculosFiltrados = data.filter(cubiculo => {
-          const nombreCubiculo = cubiculo.nombre.toLowerCase();
-          return nombreCubiculo.includes(nombre);
+          const productosFiltrados = data.filter(prod => {
+          const nombreProducto = prod.Nombre.toLowerCase();
+          return nombreProducto.includes(nombre);
         });
-        setLista(cubiculosFiltrados);
+        setLista(productosFiltrados);
         if (nombre==""){
             setLista(data)
         }
@@ -64,10 +65,7 @@ function GestCubiculos(props) {
                 console.log(JSON.stringify(responseData));
                 navigationN.goBack()
             })
-           
     }
-      
-
       
     const alertaEliminar = (nombre, id) =>
     Alert.alert('¿Eliminar', nombre+["?"] , [
