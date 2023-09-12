@@ -114,7 +114,6 @@ const MainScreenStyles = StyleSheet.create({
         textAlign: "center",
         height: 50,
         width: '50%',
-        borderRadius:10,
         backgroundColor:'white',
         fontSize: SharedStyles.buttonsSizeFont,
         borderBottomColor: 'grey',

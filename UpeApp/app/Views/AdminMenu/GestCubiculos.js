@@ -60,11 +60,11 @@ function GestCubiculos(props) {
 
             }),
         })
+
             .then((response) => response.json())
-            .then((responseData) => {
-                console.log(JSON.stringify(responseData));
-                navigationN.goBack()
-            })
+            .then((json) => {setData(json),setLista(json)})
+            .catch((error) => console.error(error))
+            .finally(() => setLoading(false))
     }
       
     const alertaEliminar = (nombre, id) =>

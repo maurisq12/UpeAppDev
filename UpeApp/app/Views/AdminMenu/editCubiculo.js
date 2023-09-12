@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { Switch, Text, Image,View, TextInput,TouchableOpacity,StyleSheet, ScrollView } from 'react-native';
+import { Switch,Alert, Text, Image,View, TextInput,TouchableOpacity,StyleSheet, ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Dropdown } from 'react-native-element-dropdown';
 import { SearchBar } from '@rneui/themed';
@@ -11,6 +11,10 @@ import AntDesign from '@expo/vector-icons/AntDesign';
 
 function EditCubiculo(route) {
     const navigationN = useNavigation();
+
+    function volver() {
+        navigationN.navigate("GestCubiculos");
+    }
 
     
 
@@ -67,6 +71,36 @@ function EditCubiculo(route) {
             })
             
     }
+
+    function  eliminarProducto(id){
+        fetch("https://upeapp.fly.dev/productos/delete", {
+            method: "POST",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                IDProducto: id,
+
+            }),
+        })
+            .catch((error) => console.error(error))
+            .then(volver)
+            .finally(() => setLoading(false)
+
+        )}
+      
+    const alertaEliminar = (nombre, id) =>
+    Alert.alert('¿Eliminar', nombre+["?"] , [
+        {
+          text: 'Cancelar',
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel',
+        },
+        {text: 'Eliminar', onPress: () => eliminarProducto(id)},
+      ]);
+      
+
     return (
 
         <ScrollView style={MainScreenStyles.container}>
@@ -80,7 +114,7 @@ function EditCubiculo(route) {
                 <Text style={MainScreenStyles.titulo}>Editar producto</Text>
                 <View style={{ alignItems: 'center', justifyContent: 'space-around', }}>
 
-                    <Text style={{ fontSize: 20, fontWeight: 'bold', marginBottom: 30,marginTop:20, color:'#AAAAAA' }}>Nombre del producto:</Text>
+                    <Text style={{ fontSize: 20, fontWeight: 'bold', marginBottom: 10,marginTop:20, color:'#AAAAAA' }}>Nombre del producto:</Text>
                     <TextInput
                         id="nombre"
                         style={MainScreenStyles.input}
@@ -88,7 +122,7 @@ function EditCubiculo(route) {
                         value={textNombre}
                         placeholderTextColor="black"
                     />
-                    <Text style={{ fontSize: 20, fontWeight: 'bold', marginTop: 40, marginBottom: 30, color:'#AAAAAA'}}>Tipo:</Text>
+                    <Text style={{ fontSize: 20, fontWeight: 'bold', marginTop: 40, marginBottom: 10, color:'#AAAAAA'}}>Tipo:</Text>
                     <Dropdown
                         style={styles.dropdown}
                         placeholderStyle={styles.placeholderStyle}
@@ -110,7 +144,7 @@ function EditCubiculo(route) {
                         <AntDesign style={styles.icon} color="black" name="Safety" size={20} />
                         )}
                     />
-                    <Text style={{ fontSize: 20, fontWeight: 'bold', marginTop: 40, marginBottom: 30, color:'#AAAAAA'}}>Costo:</Text>
+                    <Text style={{ fontSize: 20, fontWeight: 'bold', marginTop: 40, marginBottom: 1, color:'#AAAAAA'}}>Costo:</Text>
                     <TextInput
                         keyboardType={"numeric"}
                         style={MainScreenStyles.intInput}
@@ -119,7 +153,7 @@ function EditCubiculo(route) {
                         placeholderTextColor="black"
                     />
 
-                    <Text style={{ fontSize: 20, fontWeight: 'bold', marginTop: 40, marginBottom: 30, color:'#AAAAAA'}}>Detalles :</Text>
+                    <Text style={{ fontSize: 20, fontWeight: 'bold', marginTop: 40, marginBottom: 5, color:'#AAAAAA'}}>Detalles :</Text>
                     <TextInput
                         style={MainScreenStyles.input}
                         onChangeText={newText => setDetalles(newText)}
@@ -134,7 +168,7 @@ function EditCubiculo(route) {
                         </View>
                     </TouchableOpacity>
 
-                    <TouchableOpacity onPress={realizarCambios}>
+                    <TouchableOpacity onPress={()=>alertaEliminar(prod.Nombre,prod.IDProducto)}>
                         <View style={MainScreenStyles.buttonDelete}>
                             <Text style={{ fontSize: 20, color: "white" }}>Eliminar producto</Text>
                         </View>

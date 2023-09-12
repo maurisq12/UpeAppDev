@@ -16,9 +16,10 @@ function GestCubiculos(props) {
     useEffect(() => {
         fetch(url)
             .then((response) => response.json())
-            .then((json) => setData(json))
-            .catch((error) => console.error(error))
-            .finally(() => setLoading(false))
+            .then((responseData) => {
+                console.log(JSON.stringify(responseData));
+                navigationN.goBack()
+            })
     }, [])
 
     //

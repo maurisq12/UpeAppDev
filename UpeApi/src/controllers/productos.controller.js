@@ -80,18 +80,23 @@ export const eliminarProducto = async (req, res) => {
         return res.status(400).json({msg:"Bad request. Please fill all fields"})
     }
 
+    const con2 = await getConnection();
+    con2.request()
+    .input('pIDProducto',sql.Int,IDProducto)
+    .query("eliminarProducto @pIDProducto");
+
     //eliminar producto del catalogo del vendedor
     const con = await getConnection();
     const resp= await con.request()
     .input('pIDProducto',sql.Int,IDProducto)
     .query("eliminarProductoAVendedor @pIDProducto");
-    res.json(resp.recordset)
 
     //eliminar el producto de la bd
-    con.request()
-    .input('pIDProducto',sql.Int,IDProducto)
-    .query("eliminarProducto @pIDProducto");
-    res.json(resp.recordset)
+    
+
+    console.log("si")
+
+    return res.status(200).json({msg:"Realizado"})
 
 }
 
