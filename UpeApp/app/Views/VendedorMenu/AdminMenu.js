@@ -6,8 +6,8 @@ import MainScreenStyles from '../MainMenu/styles';
 function AdminMenu(props) {
   const navigationN = useNavigation();
 
-  function navGestCub() {
-    navigationN.navigate("GestCubiculos");
+  function navMisProductos() {
+    navigationN.navigate("MisProductos");
   }
   function navGestEst()  {
     navigationN.navigate("GestEstudiantes");

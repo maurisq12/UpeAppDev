@@ -9,7 +9,7 @@ import AntDesign from '@expo/vector-icons/AntDesign';
 
 
 
-function EditCubiculo(route) {
+function EditProducto(route) {
     const navigationN = useNavigation();
 
     function volver() {
@@ -181,7 +181,7 @@ function EditCubiculo(route) {
     );
 }
 
-export default EditCubiculo;
+export default EditProducto;
 
 const styles = StyleSheet.create({
     dropdown: {

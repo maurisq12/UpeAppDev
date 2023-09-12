@@ -53,16 +53,12 @@ CREATE TABLE Distrito
     IDCanton int FOREIGN KEY REFERENCES Canton(IDCanton) 
 );
 
-CREATE TABLE Zona
-(
-    IDZona INT PRIMARY KEY IDENTITY(1,1),
-	 IDDistrito int FOREIGN KEY REFERENCES Distrito(IDDistrito)  
-);
 
 CREATE TABLE ZonasPorVendedor
 (
-    IDZona int FOREIGN KEY REFERENCES Zona(IDZona), 
-    IDVendedor int FOREIGN KEY REFERENCES Vendedor(IDVendedor)
+    IDZona int FOREIGN KEY REFERENCES Distrito(IDDistrito), 
+    IDVendedor int FOREIGN KEY REFERENCES Vendedor(IDVendedor),
+    FechaAgregado DATE
 );
 
 CREATE TABLE ProductosPorVendedor

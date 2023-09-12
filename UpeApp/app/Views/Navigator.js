@@ -3,13 +3,12 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import LoginScreen from "./Login/LoginScreen";
 import MainScreen from "./MainMenu/MainScreen";
-import AdminMenu from "./AdminMenu/AdminMenu";
-import GestCubiculos from "./AdminMenu/GestCubiculos";
-import GestEstudiantes from "./AdminMenu/GestEstudiantes";
+import AdminMenu from "./VendedorMenu/AdminMenu";
+import MisProductos from "./VendedorMenu/MisProductos";
 import RegisterScreen from "./Register/RegisterScreen";
-import EditCubiculo from "./AdminMenu/editCubiculo";
-import MiPerfil from "./AdminMenu/MiPerfil";
-import Zonas from "./AdminMenu/Zonas";
+import EditProducto from "./VendedorMenu/editProducto";
+import MiPerfil from "./VendedorMenu/MiPerfil";
+import Zonas from "./VendedorMenu/Zonas";
 import SharedStyles from "./Shared";
  
 const HomeStackNavigator = createNativeStackNavigator();
@@ -39,15 +38,8 @@ function MyStack() {
                 }}
             />
             <HomeStackNavigator.Screen
-                name="GestCubiculos"
-                component={GestCubiculos}
-                options={{
-                    headerShown: false
-                }}
-            />
-            <HomeStackNavigator.Screen
-                name="GestEstudiantes"
-                component={GestEstudiantes}
+                name="MisProductos"
+                component={MisProductos}
                 options={{
                     headerShown: false
                 }}
@@ -69,8 +61,8 @@ function MyStack() {
 
             />
             <HomeStackNavigator.Screen
-                name="EditCubiculo"
-                component={EditCubiculo}
+                name="EditProducto"
+                component={EditProducto}
                 options={{
                     headerShown: false
                 }}

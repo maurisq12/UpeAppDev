@@ -89,7 +89,7 @@ END;
 CREATE OR ALTER PROCEDURE consultarTipoProducto
 AS
 BEGIN
-SELECT Nombre
+SELECT IDTipoProducto, Nombre
 FROM TipoProducto
 END;
 
@@ -142,7 +142,7 @@ END;
 CREATE OR ALTER PROCEDURE consultarProductos
 AS
 BEGIN
-SELECT Producto.Nombre AS Nombre,Costo,Detalles,Fotografia,IDTipo, TipoProducto.Nombre AS Tipo
+SELECT IDProducto, Producto.Nombre AS Nombre,Costo,Detalles,Fotografia,IDTipo, TipoProducto.Nombre AS Tipo
 FROM Producto
 INNER JOIN TipoProducto ON Producto.IDTipo = TipoProducto.IDTipoProducto
 END;
@@ -228,7 +228,7 @@ CREATE OR ALTER PROCEDURE consultarZonasAVendedor
 @pIDVendedor INT
 AS
 BEGIN
-SELECT Distrito.Nombre AS Distrito, Canton.Nombre AS Canton, Provincia.Nombre AS Provincia, FechaAgregado
+SELECT IDZona, Distrito.Nombre AS Distrito, Canton.Nombre AS Canton, Provincia.Nombre AS Provincia, FechaAgregado
 FROM ZonasPorVendedor
 INNER JOIN Distrito ON ZonasPorVendedor.IDZona=Distrito.IDDistrito
 INNER JOIN Canton ON Distrito.IDCanton = Canton.IDCanton

@@ -82,7 +82,7 @@ function Zonas(props) {
                         <Text> Cargando... </Text>
                     ) : (
                         lista.map((post) => (
-                            <View style={MainScreenStyles.cubContainer} key={post.id}>
+                            <View style={MainScreenStyles.cubContainer} key={post.IDZona}>
                                 <Text style={{ fontSize: 25, fontWeight: 'bold' }}>
                                     {post.Provincia}, {post.Canton}, {post.Distrito}
                                 </Text>

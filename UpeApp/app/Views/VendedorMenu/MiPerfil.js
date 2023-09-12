@@ -5,44 +5,32 @@ import { SearchBar } from '@rneui/themed';
 import MainScreenStyles from '../MainMenu/styles';
 import SharedStyles from '../Shared';
 
-function MiPerfil(route) {
-    /*
-        const navigationN = useNavigation();
-        const prod = route.route.params
-        const [textNombre, setNombre] = useState(prod.Nombre);
-        const [textCosto, setCosto] = useState(""+prod.Costo);
-        const [textTipo, setTipo] = useState(""+prod.Tipo);
-        const [textDetalles, setDetalles] = useState(""+prod.Detalles);
-    
-        const [isEnabled, setIsEnabled] = useState("Ocupado" == prod.estado ? false : true);
-        const toggleSwitch = () => setIsEnabled(previousState => !previousState);
-        const pEstado = useState(isEnabled ? 1 : 0);
-        
-    
-        function  realizarCambios(){
-            fetch("https://upeapp.fly.dev/productos/edit", {
-                method: "POST",
-                headers: {
-                    Accept: "application/json",
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    IDProducto:prod.IDProducto,
-                    Nombre:textNombre,
-                    Costo:textCosto,
-                    Detalles:textDetalles,
-                    Fotografia:1,
-                    IDTipo:2
-                }),
-            })
-                .then((response) => response.json())
-                .then((responseData) => {
-                    console.log(JSON.stringify(responseData));
-                    navigationN.goBack()
-                })
-                
-        }
-        */
+function MiPerfil() {
+    const [data, setData] = useState([])
+    const [lista, setLista] = useState([])
+
+    const [loading, setLoading] = useState(true)
+
+/*
+        fetch("https://upeapp.fly.dev/vendedores/uno", {
+            method: "POST",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                IDVendedor:1,
+
+            }),
+        })
+
+            .then(async (response) => await response.json())
+            .then((json) => {setData(json),setLista(json)})
+            .then(console.log(lista))
+            .catch((error) => console.error(error))
+            .finally(() => setLoading(false))*/
+
+
     return (
 
         <View style={MainScreenStyles.container}>
@@ -61,16 +49,16 @@ function MiPerfil(route) {
                     <TextInput
                         id="nombre"
                         style={MainScreenStyles.input}
-                        onChangeText={newText => setNombre(newText)}
-                        value={"Nombre"}
+                        onChangeText={newText => setNombres(newText)}
+                        value={"Aaron David"}
                         placeholderTextColor="black"
                     />
                     <Text style={MainScreenStyles.formTitleText}>Apellidos</Text>
                     <TextInput
                         id="nombre"
                         style={MainScreenStyles.input}
-                        onChangeText={newText => setNombre(newText)}
-                        value={"textNombre"}
+                        onChangeText={newText => setApellidos(newText)}
+                        value={"Retana Salazar"}
                         placeholderTextColor="black"
                     />
                     <Text style={MainScreenStyles.formTitleText}>Correo electrónico</Text>
@@ -78,7 +66,7 @@ function MiPerfil(route) {
                         id="nombre"
                         style={MainScreenStyles.input}
                         onChangeText={newText => setNombre(newText)}
-                        value={"textNombre"}
+                        value={"aaronrs02@estudiantec.cr"}
                         placeholderTextColor="black"
                     />
 
@@ -87,7 +75,7 @@ function MiPerfil(route) {
                         keyboardType={"numeric"}
                         style={MainScreenStyles.intInput}
                         onChangeText={newText => setCosto(newText)}
-                        value={"8888-7777"}
+                        value={"8888-8888"}
                         placeholderTextColor="black"
                     />
 
@@ -96,7 +84,7 @@ function MiPerfil(route) {
                         id="nombre"
                         style={MainScreenStyles.input}
                         onChangeText={newText => setNombre(newText)}
-                        value={"textNombre"}
+                        value={"aaronrs02"}
                         placeholderTextColor="black"
                     />
 
@@ -105,7 +93,7 @@ function MiPerfil(route) {
                         id="nombre"
                         style={MainScreenStyles.input}
                         onChangeText={newText => setNombre(newText)}
-                        value={"textNombre"}
+                        value={"postreasaaronrs"}
                         placeholderTextColor="black"
                     />
 

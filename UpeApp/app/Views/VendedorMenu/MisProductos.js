@@ -5,7 +5,7 @@ import { SearchBar } from '@rneui/themed';
 import MainScreenStyles from '../MainMenu/styles';
 import SharedStyles from '../Shared';
 
-function GestCubiculos(props) {
+function MisProductos(props) {
     const navigationN = useNavigation();
 
     //Mauricio S
@@ -17,7 +17,7 @@ function GestCubiculos(props) {
 
     useEffect(() => {
         fetch(url)
-            .then((response) => response.json())
+            .then(async (response) => response.json())
             .then((json) => {setData(json),setLista(json)})
             .catch((error) => console.error(error))
             .finally(() => setLoading(false))
@@ -25,7 +25,7 @@ function GestCubiculos(props) {
 
     //
     function navGestAsig()  {
-        navigationN.navigate("EditCubiculo");
+        navigationN.navigate("EditProducto");
       }
 
 
@@ -107,12 +107,12 @@ function GestCubiculos(props) {
                     {
                         loading ? (<Text> Cargando... </Text>) : (
                             lista.map((post) => (
-                                <View style={MainScreenStyles.cubContainer}  key={post.idCubiculo}>
+                                <View style={MainScreenStyles.cubContainer}  key={post.IDProducto}>
                                     <Text style={{ fontSize: 30, fontWeight: 'bold' }}>{post.Nombre}</Text>
                                     <Text style={{ fontSize: 20 }}>₡{post.Costo}</Text>
                                     <Text style={{ fontSize: 20 }}>{post.Tipo}</Text>
                                     <View style={{ marginTop: 15, flexDirection: "row", alignSelf: "center", justifyContent: "space-between", width: "80%" }}>
-                                        <TouchableOpacity onPress={() => navigationN.navigate("EditCubiculo",post)}>
+                                        <TouchableOpacity onPress={() => navigationN.navigate("EditProducto",post)}>
                                             <View style={MainScreenStyles.buttonAcept}>
                                                 <Text style={{ fontSize: 20, color: "white", alignContent:'center'}}>Editar</Text>
                                             </View>
@@ -120,7 +120,7 @@ function GestCubiculos(props) {
                                     </View>
                                 </View>
 
-                            ))
+                            )) 
                         )}
                 </ScrollView>
             </View>
@@ -128,4 +128,4 @@ function GestCubiculos(props) {
     );
 }
 
-export default GestCubiculos;
+export default MisProductos;

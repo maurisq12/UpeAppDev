@@ -11,8 +11,8 @@ function MainScreen(props) {
    // navigationN.navigate("");
   }
 
-  function navGestCub() {
-    navigationN.navigate("GestCubiculos");
+  function navMisProductos() {
+    navigationN.navigate("MisProductos");
   }
 
   function botonListaApartados() {
@@ -50,7 +50,7 @@ function MainScreen(props) {
             </View>
           </TouchableOpacity>
 
-          <TouchableOpacity onPress={navGestCub}>
+          <TouchableOpacity onPress={navMisProductos}>
             <View style={MainScreenStyles.button}>
               <Text style={MainScreenStyles.buttonText}>Mis productos</Text>
               <Image

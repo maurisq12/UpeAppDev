@@ -1,10 +1,10 @@
 import { getConnection, sql } from '../database/connection.js'
 
 export const getVendedor = async (req, res) => {
-    const {pIDVendedor} = req.body
+    const {IDVendedor} = req.body
     const con = await getConnection();
     const resp= await con.request()
-    .input('pIDVendedor', sql.Int ,pIDVendedor)
+    .input('pIDVendedor', sql.Int ,IDVendedor)
     .query("consultarVendedor @pIDVendedor");
     res.json(resp.recordset)
 }
