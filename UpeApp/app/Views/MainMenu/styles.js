@@ -9,6 +9,7 @@ const MainScreenStyles = StyleSheet.create({
       //paddingTop: StatusBar.currentHeight,
     },
     buttonAcept: {
+      marginTop: 35,
       borderRadius: 8,
       padding: 12,
       marginTop:25,
@@ -88,6 +89,16 @@ const MainScreenStyles = StyleSheet.create({
         color: SharedStyles.colorDark,
         opacity:1.0
       },
+      formTitleText: {
+        alignSelf: "baseline",
+        fontSize: 20,
+        fontWeight: 'bold',
+        marginBottom: 30,
+        marginTop: 30,
+        marginLeft: 30,
+        color:'#AAAAAA'
+      },
+
       input: {
         height: 50,
         width: '90%',
@@ -102,7 +113,8 @@ const MainScreenStyles = StyleSheet.create({
       intInput: {
         textAlign: "center",
         height: 50,
-        width: '20%',
+        width: '50%',
+        borderRadius:10,
         backgroundColor:'white',
         fontSize: SharedStyles.buttonsSizeFont,
         borderBottomColor: 'grey',

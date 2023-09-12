@@ -21,6 +21,9 @@ function MainScreen(props) {
   function botonAdmin() {
     navigationN.navigate("Dropdown");
   }
+  function navMiPerfil()  {
+    navigationN.navigate("MiPerfil");
+  }
 
 
   return (
@@ -35,7 +38,7 @@ function MainScreen(props) {
         <Text style={{ textAlign: 'center',paddingBottom:25, fontSize:20,fontWeight:'bold',color:'#0D5C63' }}>Bienvenido de nuevo, *usuario*</Text>
          
         <View style={MainScreenStyles.buttonView}>
-        <TouchableOpacity onPress={botonApartar}  >
+        <TouchableOpacity onPress={navMiPerfil}  >
             <View style={MainScreenStyles.button}>
               <Text style={MainScreenStyles.buttonText}>Mi perfil</Text>
               <Image
