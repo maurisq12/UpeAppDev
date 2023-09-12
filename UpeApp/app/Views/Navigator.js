@@ -9,6 +9,7 @@ import GestEstudiantes from "./AdminMenu/GestEstudiantes";
 import RegisterScreen from "./Register/RegisterScreen";
 import EditCubiculo from "./AdminMenu/editCubiculo";
 import MiPerfil from "./AdminMenu/MiPerfil";
+import Zonas from "./AdminMenu/Zonas";
 import SharedStyles from "./Shared";
  
 const HomeStackNavigator = createNativeStackNavigator();
@@ -74,6 +75,13 @@ function MyStack() {
                     headerShown: false
                 }}
                
+            />
+            <HomeStackNavigator.Screen
+                name="Zonas"
+                component={Zonas}
+                options={{
+                    headerShown: false
+                }}
             />
         </HomeStackNavigator.Navigator>
     )

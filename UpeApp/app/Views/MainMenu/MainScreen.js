@@ -24,6 +24,9 @@ function MainScreen(props) {
   function navMiPerfil()  {
     navigationN.navigate("MiPerfil");
   }
+  function botonZonas() {
+    navigationN.navigate("Zonas");
+  }
 
 
   return (
@@ -56,7 +59,7 @@ function MainScreen(props) {
             </View>
           </TouchableOpacity>
 
-          <TouchableOpacity onPress={botonAdmin}>
+          <TouchableOpacity onPress={botonZonas}>
             <View style={MainScreenStyles.button}>
               <Text style={MainScreenStyles.buttonText}>Mis zonas</Text>
               <Image
