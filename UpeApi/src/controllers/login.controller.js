@@ -23,7 +23,7 @@ export const iniciarSesion  = async (req,res) =>{
     const {CorreoElectronico, Contrasena} = req.body
 
     if(CorreoElectronico==null || Contrasena==null){
-        return res.status(400).json({msg:"Bad request. Please fill all fields"})
+        return res.status(400).json({msg:"Bad request. Please fill all fields log"})
     }
 
 
@@ -32,7 +32,14 @@ export const iniciarSesion  = async (req,res) =>{
     .input('pCorreoElectronico', sql.VarChar, CorreoElectronico)
     .input('pContrasena', sql.VarChar, Contrasena)
     .query("iniciarSesion @pCorreoElectronico, @pContrasena")
-    res.json(resp.recordset)
+    if(resp.recordset.length>0){
+        res.json(resp.recordset)
+    }
+    else{
+        return res.status(400).json({msg:"Credenciales incorrectos"})
+    }
+
+    
 
 
 

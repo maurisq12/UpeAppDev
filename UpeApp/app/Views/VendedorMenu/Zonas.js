@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect, useContext } from 'react';
 import {
     StyleSheet,
     Text,
@@ -18,6 +18,7 @@ import { useNavigation } from '@react-navigation/native';
 import { SearchBar } from '@rneui/themed';
 import MainScreenStyles from '../MainMenu/styles';
 import SharedStyles from '../Shared';
+import { AuthContext } from '../../context/AuthContext';
 
 function formatDate(inputDate) {
     const date = new Date(inputDate);
@@ -35,6 +36,7 @@ function formatDate(inputDate) {
 
 function Zonas(props) {
     const navigationN = useNavigation();
+    const { userInfo } = useContext(AuthContext);
 
     // Initialize lista as an empty array
     const [lista, setLista] = useState([]);
@@ -43,6 +45,7 @@ function Zonas(props) {
     const url = 'https://upeapp.fly.dev/zonas/uno';
 
     useEffect(() => {
+        console.log("ID de vendedor", userInfo.IDVendedor)
         fetch(url, {
             method: 'POST',
             headers: {
@@ -50,7 +53,7 @@ function Zonas(props) {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                IDVendedor: 1,
+                IDVendedor: userInfo.IDVendedor
             }),
         })
             .then((response) => response.json())
@@ -60,6 +63,8 @@ function Zonas(props) {
             .catch((error) => console.error(error))
             .finally(() => setLoading(false));
     }, []);
+
+    console.log(lista)
 
     return (
         <View style={MainScreenStyles.container}>

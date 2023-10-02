@@ -50,7 +50,7 @@ function EditProducto(route) {
 
     function  realizarCambios(){
         fetch("https://upeapp.fly.dev/productos/edit", {
-            method: "POST",
+            method: "GET",
             headers: {
                 Accept: "application/json",
                 "Content-Type": "application/json",

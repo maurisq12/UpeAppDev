@@ -1,35 +1,40 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect, useContext } from 'react';
 import { Switch, Text, Image, View, TextInput, TouchableOpacity, ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { SearchBar } from '@rneui/themed';
 import MainScreenStyles from '../MainMenu/styles';
 import SharedStyles from '../Shared';
+import { AuthContext } from '../../context/AuthContext';
 
 function MiPerfil() {
+    const { userInfo } = useContext(AuthContext);
+    const url = "https://upeapp.fly.dev/vendedores/uno";
+
     const [data, setData] = useState([])
-    const [lista, setLista] = useState([])
 
     const [loading, setLoading] = useState(true)
 
-/*
-        fetch("https://upeapp.fly.dev/vendedores/uno", {
-            method: "POST",
+    useEffect(() => {
+        console.log("ID de vendedor", userInfo.IDVendedor)
+        fetch(url, {
+            method: 'POST',
             headers: {
-                Accept: "application/json",
-                "Content-Type": "application/json",
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                IDVendedor:1,
-
+                IDVendedor: 1
             }),
         })
-
-            .then(async (response) => await response.json())
-            .then((json) => {setData(json),setLista(json)})
-            .then(console.log(lista))
+            .then((response) => response.json())
+            .then((json) => {
+                setData(json[0]);
+            })
             .catch((error) => console.error(error))
-            .finally(() => setLoading(false))*/
-
+            .finally(() => setLoading(false));
+    }, []);
+    console.log(data)
+    if(data !=[]){
 
     return (
 
@@ -50,7 +55,7 @@ function MiPerfil() {
                         id="nombre"
                         style={MainScreenStyles.input}
                         onChangeText={newText => setNombres(newText)}
-                        value={"Aaron David"}
+                        value={data.Nombres}
                         placeholderTextColor="black"
                     />
                     <Text style={MainScreenStyles.formTitleText}>Apellidos</Text>
@@ -58,7 +63,7 @@ function MiPerfil() {
                         id="nombre"
                         style={MainScreenStyles.input}
                         onChangeText={newText => setApellidos(newText)}
-                        value={"Retana Salazar"}
+                        value={data.Apellidos}
                         placeholderTextColor="black"
                     />
                     <Text style={MainScreenStyles.formTitleText}>Correo electrónico</Text>
@@ -66,7 +71,7 @@ function MiPerfil() {
                         id="nombre"
                         style={MainScreenStyles.input}
                         onChangeText={newText => setNombre(newText)}
-                        value={"aaronrs02@estudiantec.cr"}
+                        value={data.CorreoElectronico}
                         placeholderTextColor="black"
                     />
 
@@ -75,7 +80,7 @@ function MiPerfil() {
                         keyboardType={"numeric"}
                         style={MainScreenStyles.intInput}
                         onChangeText={newText => setCosto(newText)}
-                        value={"8888-8888"}
+                        value={'8888-8888'}
                         placeholderTextColor="black"
                     />
 
@@ -84,7 +89,7 @@ function MiPerfil() {
                         id="nombre"
                         style={MainScreenStyles.input}
                         onChangeText={newText => setNombre(newText)}
-                        value={"aaronrs02"}
+                        value={data.Facebook}
                         placeholderTextColor="black"
                     />
 
@@ -93,7 +98,7 @@ function MiPerfil() {
                         id="nombre"
                         style={MainScreenStyles.input}
                         onChangeText={newText => setNombre(newText)}
-                        value={"postreasaaronrs"}
+                        value={data.Instagram}
                         placeholderTextColor="black"
                     />
 
@@ -111,7 +116,7 @@ function MiPerfil() {
 
             </ScrollView>
         </View>
-    );
+    );}
 }
 
 export default MiPerfil;

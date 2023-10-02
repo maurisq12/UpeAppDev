@@ -17,6 +17,15 @@ export const getProducto = async (req, res) => {
     res.json(resp.recordset)
 }
 
+export const getProductosVendedor = async (req, res) => {
+    const {IDVendedor} = req.body
+    const con = await getConnection();
+    const resp= await con.request()
+    .input('pIDVendedor', sql.Int ,IDVendedor)
+    .query("consultarProductosAVendedor @pIDVendedor");
+    res.json(resp.recordset)
+}
+
 export const getProductos = async (req, res) => {
     const con = await getConnection();
     const resp= await con.request()

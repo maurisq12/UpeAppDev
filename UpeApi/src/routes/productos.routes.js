@@ -1,9 +1,10 @@
 import {Router} from 'express'
-import {getProducto,getProductos, modificarProducto, agregarProducto, eliminarProducto, getTipoProducto } from '../controllers/productos.controller.js'
+import {getProducto,getProductos, modificarProducto, agregarProducto, eliminarProducto, getTipoProducto,getProductosVendedor } from '../controllers/productos.controller.js'
 
 const routerC = Router();
 
 routerC.get('/productos/todos', getProductos)
+routerC.post('/productos/vendedor', getProductosVendedor)
 routerC.get('/productos/uno', getProducto)
 routerC.get('/productos/tipos', getTipoProducto)
 routerC.post('/productos/edit', modificarProducto)

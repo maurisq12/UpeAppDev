@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
+import {View, Text,ActivityIndicator} from 'react-native';
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import LoginScreen from "./Login/LoginScreen";
@@ -10,12 +11,22 @@ import EditProducto from "./VendedorMenu/editProducto";
 import MiPerfil from "./VendedorMenu/MiPerfil";
 import Zonas from "./VendedorMenu/Zonas";
 import SharedStyles from "./Shared";
+import { AuthContext } from "../context/AuthContext";
  
 const HomeStackNavigator = createNativeStackNavigator();
 
+
 function MyStack() {
     return (
-        <HomeStackNavigator.Navigator initialRouteName="Login">
+        <HomeStackNavigator.Navigator initialRouteName="Menu">
+            <HomeStackNavigator.Screen 
+                name="Menu"
+                component={MainScreen}
+                options={{
+                    headerShown: false
+                }}
+            />
+
             <HomeStackNavigator.Screen
                 name="Login"
                 component={LoginScreen}
@@ -23,13 +34,7 @@ function MyStack() {
                     headerShown: false
                 }}
             />
-            <HomeStackNavigator.Screen
-                name="Menu"
-                component={MainScreen}
-                options={{
-                    headerShown: false
-                }}
-            />
+            
             <HomeStackNavigator.Screen
                 name="AdminMenu"
                 component={AdminMenu}
@@ -79,9 +84,19 @@ function MyStack() {
     )
 }
 export default function ScreenNavigator() {
+    const {isLoading, userToken} = useContext(AuthContext);
+    console.log(isLoading)
+    if(isLoading){
+        return (
+            <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
+                <ActivityIndicator size="large" color="#0D5C63" />
+            </View>
+        );        
+    }
+
     return (
         <NavigationContainer>
-            <MyStack />
+            {userToken !== null ? <MyStack /> : <LoginScreen/>} 
         </NavigationContainer>
-    )
+    );
 }

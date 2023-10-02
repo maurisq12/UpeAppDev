@@ -199,9 +199,10 @@ CREATE OR ALTER PROCEDURE consultarProductosAVendedor
 @pIDVendedor INT
 AS
 BEGIN
-SELECT (IDProducto)
+SELECT Producto.IDProducto, Producto.Nombre AS Nombre,Costo,Detalles,Fotografia,IDTipo, TipoProducto.Nombre AS Tipo
 FROM ProductosPorVendedor
-WHERE IDVendedor=@pIDVendedor
+INNER JOIN Producto ON Producto.IDProducto = ProductosPorVendedor.IDProducto
+INNER JOIN TipoProducto ON Producto.IDTipo = TipoProducto.IDTipoProducto
 END;
 
 
@@ -244,7 +245,7 @@ CREATE OR ALTER PROCEDURE iniciarSesion
 @pContrasena VARCHAR(30)
 AS
 BEGIN
-SELECT Nombres,Apellidos,CorreoElectronico,Contacto,Facebook,Instagram,Fotografia
+SELECT IDVendedor, Nombres,Apellidos,CorreoElectronico,Contacto,Facebook,Instagram,Fotografia
 FROM Vendedor
 WHERE CorreoElectronico = @pCorreoElectronico AND Contrasena = @pContrasena
 END;
