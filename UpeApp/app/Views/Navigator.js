@@ -13,6 +13,7 @@ import EditProducto from "./VendedorMenu/editProducto";
 import agregarProducto from "./VendedorMenu/agregarProducto";
 import MiPerfil from "./VendedorMenu/MiPerfil";
 import Zonas from "./VendedorMenu/Zonas";
+import AddZona from "./VendedorMenu/addZona";
 import SharedStyles from "./Shared";
 import { AuthContext } from "../context/AuthContext";
  
@@ -106,6 +107,14 @@ function MyStack() {
                 options={{
                     headerShown: false
                 }}
+            />
+            <HomeStackNavigator.Screen
+                name="AddZona"
+                component={AddZona}
+                options={{
+                    headerShown: false
+                }}
+               
             />
         </HomeStackNavigator.Navigator>
     )

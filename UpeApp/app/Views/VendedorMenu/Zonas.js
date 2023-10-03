@@ -79,6 +79,13 @@ function Zonas(props) {
             >
                 Mis zonas
             </Text>
+            <View style={{ marginTop: 0, flexDirection: "row-reverse", alignSelf: "center", justifyContent: "space-between", width: "80%" }}>
+                <TouchableOpacity onPress={() => navigationN.navigate("AddZona", userToken)}>
+                    <View style={MainScreenStyles.buttonAcept}>
+                        <Text style={{ fontSize: 20, color: "white"}}>Agregar</Text>
+                    </View>
+                </TouchableOpacity>
+             </View>
 
             <View style={MainScreenStyles.pageView}>
                 <ScrollView>
