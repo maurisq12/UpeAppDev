@@ -17,6 +17,15 @@ export const getProducto = async (req, res) => {
     res.json(resp.recordset)
 }
 
+export const getProductosVendedor = async (req, res) => {
+    const {IDVendedor} = req.body
+    const con = await getConnection();
+    const resp= await con.request()
+    .input('pIDVendedor', sql.Int ,IDVendedor)
+    .query("consultarProductosAVendedor @pIDVendedor");
+    res.json(resp.recordset)
+}
+
 export const getProductos = async (req, res) => {
     const con = await getConnection();
     const resp= await con.request()
@@ -26,7 +35,7 @@ export const getProductos = async (req, res) => {
 
 export const agregarProducto = async (req,res) =>{
 
-    const {Nombre,Costo, Detalles, Fotografia, IDTipo} = req.body
+    const {Nombre,Costo, Detalles, Fotografia, IDTipo, IDVendedor } = req.body
 
     if(Nombre==null || Costo==null || Detalles==null || Fotografia==null || IDTipo==null ){
         return res.status(400).json({msg:"Bad request. Please fill all fields"})
@@ -44,7 +53,7 @@ export const agregarProducto = async (req,res) =>{
 
     pool.request()
     .input('pIDProducto',sql.Int,IDAgregado)
-    .input('pIDVendedor',sql.Int,1)
+    .input('pIDVendedor',sql.Int, IDVendedor)
     .query("agregarProductoAVendedor @pIDProducto,@pIDVendedor")
 
     return res.status(200).json({msg:"Realizado"})

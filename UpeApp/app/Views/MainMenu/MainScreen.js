@@ -1,11 +1,34 @@
-import React, {useRef, useState} from 'react';
+import React, {useRef, useState, useContext, useEffect} from 'react';
+import {ActivityIndicator} from 'react-native';
 import {StyleSheet,Text,View,Image,SafeAreaView,Button,Alert,Platform,StatusBar,Dimensions,TouchableOpacity,DrawerLayoutAndroid,} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import MainScreenStyles from './styles';
+import { AuthContext } from '../../context/AuthContext';
 
 
 function MainScreen(props) {
   const navigationN = useNavigation();
+  const  {logout, userInfo} = useContext(AuthContext);
+  const [loading, setLoading] = useState(true);
+
+  
+
+  useEffect(() => {
+
+    if (userInfo) {
+      setLoading(false);
+      console.log("El usuario es:",userInfo)
+    }
+  }, [userInfo]);
+
+  if (loading) {
+    // Mientras se carga userInfo, puedes mostrar un indicador de carga o un mensaje
+    return (
+      <View>
+        <ActivityIndicator size="large" />
+      </View>
+    );
+  }
 
   function botonApartar() {
    // navigationN.navigate("");
@@ -71,7 +94,7 @@ function MainScreen(props) {
             </View>
           </TouchableOpacity>
 
-          <TouchableOpacity onPress={botonAdmin}>
+          <TouchableOpacity onPress={()=>{logout()}}>
             <View style={MainScreenStyles.button}>
               <Text style={MainScreenStyles.buttonText}>Ajustes</Text>
               <Image

@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect, useContext } from 'react';
 import {
     StyleSheet,
     Text,
@@ -18,6 +18,9 @@ import { useNavigation } from '@react-navigation/native';
 import { SearchBar } from '@rneui/themed';
 import MainScreenStyles from '../MainMenu/styles';
 import SharedStyles from '../Shared';
+import { AuthContext } from '../../context/AuthContext';
+
+
 
 function formatDate(inputDate) {
     const date = new Date(inputDate);
@@ -34,6 +37,7 @@ function formatDate(inputDate) {
 
 
 function Zonas(props) {
+    const { userToken } = useContext(AuthContext);
     const navigationN = useNavigation();
 
     // Initialize lista as an empty array
@@ -50,7 +54,7 @@ function Zonas(props) {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                IDVendedor: 1,
+                IDVendedor: userToken
             }),
         })
             .then((response) => response.json())

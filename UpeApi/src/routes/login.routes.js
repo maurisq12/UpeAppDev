@@ -5,7 +5,7 @@ import {verificarCorreo,iniciarSesion} from '../controllers/login.controller.js'
 const routerL = Router();
 
 routerL.get('/login/verificar', verificarCorreo)
-routerL.get('/login/iniciar', iniciarSesion)
+routerL.post('/login/iniciar', iniciarSesion)
 
 
 

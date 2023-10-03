@@ -1,12 +1,15 @@
-import React from 'react';
-import {View,KeyboardAvoidingView,TextInput,Text,TouchableOpacity,TouchableWithoutFeedback,Button,Keyboard,Image} from 'react-native'; 
+import React, {useContext} from 'react';
+import {View,KeyboardAvoidingView,TextInput,Text,TouchableOpacity,TouchableWithoutFeedback,Button,Keyboard,Image, ActivityIndicator} from 'react-native'; 
 import {useState} from 'react';
 import loginStyle from './styles';
 import { useNavigation } from '@react-navigation/native';
 import SharedStyles from '../Shared';
+import { AuthContext } from '../../context/AuthContext';
 
 function LoginScreen(props) {
+  
   const navigationN = useNavigation();
+  const  {login} = useContext(AuthContext);
 
   const [correo, setCorreo] = useState(''); 
   const [contrasena, setContrasena] = useState(''); 
@@ -44,7 +47,7 @@ function LoginScreen(props) {
               placeholderTextColor = "#0D5C63"
             />
             <View style={{paddingBottom:30, alignItems:'center'}}>
-            <TouchableOpacity  onPress={loginPressed}>
+            <TouchableOpacity  onPress={()=>{login(correo,contrasena)}}>
                   <View style={[loginStyle.button,{marginBottom:0, paddingBottom:0}]}>
                     <Text style={loginStyle.buttonText}>Iniciar Sesión</Text>
                   </View>

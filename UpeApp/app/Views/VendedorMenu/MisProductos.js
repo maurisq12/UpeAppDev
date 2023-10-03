@@ -1,11 +1,13 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect,useContext } from 'react';
 import { StyleSheet, Text, View, Image, SafeAreaView, Button, Alert, Platform, StatusBar, Dimensions, TouchableOpacity, DrawerLayoutAndroid, ScrollView, } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { SearchBar } from '@rneui/themed';
 import MainScreenStyles from '../MainMenu/styles';
 import SharedStyles from '../Shared';
+import { AuthContext } from '../../context/AuthContext';
 
 function MisProductos(props) {
+    const  {userToken} = useContext(AuthContext);
     const navigationN = useNavigation();
 
     //Mauricio S
@@ -13,10 +15,18 @@ function MisProductos(props) {
     const [lista, setLista] = useState([])
 
     const [loading, setLoading] = useState(true)
-    const url = "https://upeapp.fly.dev/productos/todos";
+    const url = "https://upeapp.fly.dev/productos/vendedor";
 
     useEffect(() => {
-        fetch(url)
+        fetch(url, {
+            method: "POST",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                IDVendedor:userToken
+            }),})
             .then(async (response) => response.json())
             .then((json) => {setData(json),setLista(json)})
             .catch((error) => console.error(error))
