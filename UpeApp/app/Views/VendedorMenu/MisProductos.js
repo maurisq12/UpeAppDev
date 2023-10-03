@@ -111,6 +111,11 @@ function MisProductos(props) {
                         onChangeText={newText => filtrarLista(newText)}
                         value={search}
                     />
+                    <TouchableOpacity onPress={() => navigationN.navigate("agregarProducto")}>
+                        <View style={MainScreenStyles.buttonAcept}>
+                            <Text style={{ fontSize: 20, color: "white", alignContent: 'center' }}>Agregar producto</Text>
+                        </View>
+                    </TouchableOpacity>
                 </View>
 
                 <ScrollView >

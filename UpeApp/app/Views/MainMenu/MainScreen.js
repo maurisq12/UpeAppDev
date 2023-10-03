@@ -50,18 +50,21 @@ function MainScreen(props) {
   function botonZonas() {
     navigationN.navigate("Zonas");
   }
+  function botonAjustes() {
+    navigationN.navigate("Comprador");
+  }
 
 
   return (
 
       <View style={MainScreenStyles.container}>
-        <View style={MainScreenStyles.banner}>
+        <TouchableOpacity onPress={botonAjustes} style={MainScreenStyles.banner}>
           <Image
             source={require('../Media/logoUpeApp.png')}
             style={{width: '100%', height: '60%', alignSelf:'center',resizeMode: 'contain'}}
           />
-        </View>
-        <Text style={{ textAlign: 'center',paddingBottom:25, fontSize:20,fontWeight:'bold',color:'#0D5C63' }}>Bienvenido de nuevo, {userInfo && userInfo.Nombres}</Text>
+        </TouchableOpacity>
+        <Text style={{ textAlign: 'center',paddingBottom:25, fontSize:20,fontWeight:'bold',color:'#0D5C63' }}>Bienvenido de nuevo, *usuario*</Text>
          
         <View style={MainScreenStyles.buttonView}>
         <TouchableOpacity onPress={navMiPerfil}  >
