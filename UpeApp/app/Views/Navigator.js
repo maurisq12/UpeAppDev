@@ -2,15 +2,18 @@ import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import LoginScreen from "./Login/LoginScreen";
+import Comprador from "./Comprador/Comprador";
+import DetalleProducto from "./Comprador/DetalleProducto";
 import MainScreen from "./MainMenu/MainScreen";
 import AdminMenu from "./VendedorMenu/AdminMenu";
 import MisProductos from "./VendedorMenu/MisProductos";
 import RegisterScreen from "./Register/RegisterScreen";
 import EditProducto from "./VendedorMenu/editProducto";
+import agregarProducto from "./VendedorMenu/agregarProducto";
 import MiPerfil from "./VendedorMenu/MiPerfil";
 import Zonas from "./VendedorMenu/Zonas";
 import SharedStyles from "./Shared";
- 
+
 const HomeStackNavigator = createNativeStackNavigator();
 
 function MyStack() {
@@ -66,7 +69,31 @@ function MyStack() {
                 options={{
                     headerShown: false
                 }}
-               
+
+            />
+            <HomeStackNavigator.Screen
+                name="agregarProducto"
+                component={agregarProducto}
+                options={{
+                    headerShown: false
+                }}
+
+            />
+            <HomeStackNavigator.Screen
+                name="Comprador"
+                component={Comprador}
+                options={{
+                    headerShown: false
+                }}
+
+            />
+            <HomeStackNavigator.Screen
+                name="DetalleProducto"
+                component={DetalleProducto}
+                options={{
+                    headerShown: false
+                }}
+
             />
             <HomeStackNavigator.Screen
                 name="Zonas"
