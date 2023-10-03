@@ -61,3 +61,14 @@ export const modificarVendedor = async (req,res) =>{
 
     return res.status(200).json({msg:"Realizado"})
 }
+
+export const consultarVendedorDeProducto = async (req, res) => {
+    const {IDProducto} = req.body
+    const con = await getConnection();
+    const resp= await con.request()
+    .input('pIDProducto', sql.Int ,IDProducto)
+    .query("consultarVendedorDeProducto @pIDProducto");
+    res.json(resp.recordset)
+}
+
+

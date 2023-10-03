@@ -56,7 +56,7 @@ function LoginScreen(props) {
               <View style={{width:300, marginTop:0, paddingBottom:30 , flexDirection: 'row', paddingTop:5}}>
              
               <Text style={[loginStyle.buttonText,{fontWeight:'normal',fontSize:18,paddingLeft:30, paddingRight:0, color:'black'}]}>¿No tienes una cuenta? {'\n'} </Text>
-                <TouchableOpacity onPress={registerPressed}>
+                <TouchableOpacity onPress={registerPressed()}>
                     <Text style={[loginStyle.buttonText,{fontSize:20, paddingHorizontal:0, color:"#0D5C63" }]}>Registrate</Text>
                 </TouchableOpacity>
                 </View>

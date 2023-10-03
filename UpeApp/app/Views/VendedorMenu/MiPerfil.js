@@ -7,6 +7,7 @@ import SharedStyles from '../Shared';
 import { AuthContext } from '../../context/AuthContext';
 
 function MiPerfil() {
+    const navigationN = useNavigation();
     const { userToken } = useContext(AuthContext);
     
     const url = "https://upeapp.fly.dev/vendedores/uno";
@@ -31,7 +32,13 @@ function MiPerfil() {
             .then((response) => response.json())
             .then((json) => {
                 setData(json[0]);
-            })
+                setNombres(json[0].Nombres);
+                setApellidos(json[0].Apellidos);
+                setCorreoElectronico(json[0].CorreoElectronico);
+                setContacto("" + json[0].Contacto);
+                setFacebook(json[0].Facebook);
+                setInstagram(json[0].Instagram);
+            })            
             .catch((error) => console.error(error))
             .finally(() => setLoading(false));
 
@@ -46,23 +53,24 @@ function MiPerfil() {
     const [textContacto, setContacto] = useState(""+data.Contacto);
     const [textFacebook, setFacebook] = useState(data.Facebook);
     const [textInstagram, setInstagram] = useState(data.Instagram); 
-    console.log(data)
     
 
     function  realizarCambios(){
         fetch("https://upeapp.fly.dev/vendedores/edit", {
-            method: "GET",
+            method: "POST",
             headers: {
                 Accept: "application/json",
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
                 IDVendedor: userToken,
-                Nombres:textNombre,
-                Costo:textCosto,
-                Detalles:textDetalles,
-                Fotografia:1,
-                IDTipo: TipoID
+                Nombres:textNombres,
+                Apellidos:textApellidos,
+                CorreoElectronico: textCorreoElectronico,
+                Contacto: textContacto,
+                Facebook: textFacebook,
+                Fotografia: 1,
+                Instagram: textInstagram
             }),
         })
             .then((response) => response.json())
@@ -73,7 +81,7 @@ function MiPerfil() {
             
     }
 
-    if(data){
+    if(data!=[]){
 
     return (
 

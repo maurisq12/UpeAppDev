@@ -46,7 +46,7 @@ END;
 CREATE OR ALTER PROCEDURE consultarVendedores
 AS
 BEGIN
-SELECT Nombres,Apellidos,CorreoElectronico,Contacto,Facebook,Instagram,Fotografia
+SELECT IDVendedor, Nombres,Apellidos,CorreoElectronico,Contacto,Facebook,Instagram,Fotografia
 FROM Vendedor
 END;
 
@@ -146,6 +146,17 @@ SELECT IDProducto, Producto.Nombre AS Nombre,Costo,Detalles,Fotografia,IDTipo, T
 FROM Producto
 INNER JOIN TipoProducto ON Producto.IDTipo = TipoProducto.IDTipoProducto
 END;
+
+@pIDProducto INT
+AS
+BEGIN
+SELECT Vendedor.IDVendedor, Nombres,Apellidos,CorreoElectronico,Contacto,Facebook,Instagram,Fotografia
+FROM ProductosPorVendedor
+INNER JOIN Vendedor ON ProductosPorVendedor.IDVendedor = Vendedor.IDVendedor
+WHERE IDProducto = @pIDProducto
+END;
+
+
 
 
 -------------------------------------------------------------Zona-------------------------------------------------------------------------------------

@@ -13,7 +13,7 @@ function EditProducto(route) {
     const navigationN = useNavigation();
 
     function volver() {
-        navigationN.navigate("GestCubiculos");
+        navigationN.navigate("MisProductos");
     }
 
     
@@ -50,7 +50,7 @@ function EditProducto(route) {
 
     function  realizarCambios(){
         fetch("https://upeapp.fly.dev/productos/edit", {
-            method: "GET",
+            method: "POST",
             headers: {
                 Accept: "application/json",
                 "Content-Type": "application/json",
