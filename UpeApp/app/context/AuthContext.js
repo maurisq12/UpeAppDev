@@ -12,10 +12,8 @@ export const AuthProvider = ({children}) => {
     const [userInfo, setUserInfo] = useState(null);
 
     const login = (correo, contrasena)=>{
-
-        console.log("contra",correo)
         setIsLoading(true);
-        axios.post('http://192.168.18.73:3000/login/iniciar',{  
+        axios.post('https://upeapp.fly.dev/login/iniciar',{  
             CorreoElectronico: correo,
             Contrasena:contrasena
           
@@ -38,22 +36,26 @@ export const AuthProvider = ({children}) => {
     const logout = ()=>{
         setIsLoading(true);
         setUserToken(null);   
-        AsyncStorage.removeItem('userToken');
         AsyncStorage.removeItem('userInfo');
+        AsyncStorage.removeItem('userToken');        
         setIsLoading(false);
     }
 
     const isLoggedIn = async () => {
         try{
+            console.log("Entrando a isLoggedIn")
             setIsLoading(true);
             let userToken = await AsyncStorage.getItem('userToken');
             let userInfo = await AsyncStorage.getItem('userInfo');
             userInfo = JSON.stringify(userInfo);
 
-            if(userInfo){
+            if(userToken){
+                console.log("ya hay un usuario :D")
                 setUserToken(userToken);
                 setUserInfo(userInfo);
-
+            }
+            else{
+                console.log("NO hay un usuario :(")
             }
             setIsLoading(false);
         }

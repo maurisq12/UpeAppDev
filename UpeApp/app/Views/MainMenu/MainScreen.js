@@ -1,4 +1,5 @@
-import React, {useRef, useState, useContext} from 'react';
+import React, {useRef, useState, useContext, useEffect} from 'react';
+import {ActivityIndicator} from 'react-native';
 import {StyleSheet,Text,View,Image,SafeAreaView,Button,Alert,Platform,StatusBar,Dimensions,TouchableOpacity,DrawerLayoutAndroid,} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import MainScreenStyles from './styles';
@@ -7,8 +8,27 @@ import { AuthContext } from '../../context/AuthContext';
 
 function MainScreen(props) {
   const navigationN = useNavigation();
-  const  {logout} = useContext(AuthContext);
-  const  {userInfo} = useContext(AuthContext);
+  const  {logout, userInfo} = useContext(AuthContext);
+  const [loading, setLoading] = useState(true);
+
+  
+
+  useEffect(() => {
+
+    if (userInfo) {
+      setLoading(false);
+      console.log("El usuario es:",userInfo)
+    }
+  }, [userInfo]);
+
+  if (loading) {
+    // Mientras se carga userInfo, puedes mostrar un indicador de carga o un mensaje
+    return (
+      <View>
+        <ActivityIndicator size="large" />
+      </View>
+    );
+  }
 
   function botonApartar() {
    // navigationN.navigate("");
@@ -41,7 +61,7 @@ function MainScreen(props) {
             style={{width: '100%', height: '60%', alignSelf:'center',resizeMode: 'contain'}}
           />
         </View>
-        <Text style={{ textAlign: 'center',paddingBottom:25, fontSize:20,fontWeight:'bold',color:'#0D5C63' }}>Bienvenido de nuevo, {userInfo.Nombres}</Text>
+        <Text style={{ textAlign: 'center',paddingBottom:25, fontSize:20,fontWeight:'bold',color:'#0D5C63' }}>Bienvenido de nuevo, {userInfo && userInfo.Nombres}</Text>
          
         <View style={MainScreenStyles.buttonView}>
         <TouchableOpacity onPress={navMiPerfil}  >

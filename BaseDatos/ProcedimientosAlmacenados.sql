@@ -203,6 +203,7 @@ SELECT Producto.IDProducto, Producto.Nombre AS Nombre,Costo,Detalles,Fotografia,
 FROM ProductosPorVendedor
 INNER JOIN Producto ON Producto.IDProducto = ProductosPorVendedor.IDProducto
 INNER JOIN TipoProducto ON Producto.IDTipo = TipoProducto.IDTipoProducto
+WHERE IDVendedor=@pIDVendedor
 END;
 
 

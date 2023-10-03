@@ -85,7 +85,6 @@ function MyStack() {
 }
 export default function ScreenNavigator() {
     const {isLoading, userToken} = useContext(AuthContext);
-    console.log(isLoading)
     if(isLoading){
         return (
             <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>

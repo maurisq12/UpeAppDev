@@ -7,7 +7,7 @@ import SharedStyles from '../Shared';
 import { AuthContext } from '../../context/AuthContext';
 
 function MisProductos(props) {
-    const  {userInfo} = useContext(AuthContext);
+    const  {userToken} = useContext(AuthContext);
     const navigationN = useNavigation();
 
     //Mauricio S
@@ -15,10 +15,9 @@ function MisProductos(props) {
     const [lista, setLista] = useState([])
 
     const [loading, setLoading] = useState(true)
-    const url = "http://192.168.18.73:3000/productos/vendedor";
+    const url = "https://upeapp.fly.dev/productos/vendedor";
 
     useEffect(() => {
-        console.log("en productos ",userInfo.IDVendedor)
         fetch(url, {
             method: "POST",
             headers: {
@@ -26,7 +25,7 @@ function MisProductos(props) {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                IDVendedor:userInfo.IDVendedor
+                IDVendedor:userToken
             }),})
             .then(async (response) => response.json())
             .then((json) => {setData(json),setLista(json)})

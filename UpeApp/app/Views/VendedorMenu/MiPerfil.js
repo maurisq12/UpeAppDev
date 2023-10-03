@@ -7,15 +7,17 @@ import SharedStyles from '../Shared';
 import { AuthContext } from '../../context/AuthContext';
 
 function MiPerfil() {
-    const { userInfo } = useContext(AuthContext);
+    const { userToken } = useContext(AuthContext);
+    
     const url = "https://upeapp.fly.dev/vendedores/uno";
 
     const [data, setData] = useState([])
 
+    
+
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
-        console.log("ID de vendedor", userInfo.IDVendedor)
         fetch(url, {
             method: 'POST',
             headers: {
@@ -23,7 +25,7 @@ function MiPerfil() {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                IDVendedor: 1
+                IDVendedor: userToken
             }),
         })
             .then((response) => response.json())
@@ -32,9 +34,46 @@ function MiPerfil() {
             })
             .catch((error) => console.error(error))
             .finally(() => setLoading(false));
-    }, []);
+
+        
+
+            
+    }, [userToken]);
+
+    const [textNombres, setNombres] = useState(data.Nombres);
+    const [textApellidos, setApellidos] = useState(data.Apellidos);
+    const [textCorreoElectronico, setCorreoElectronico] = useState(data.CorreoElectronico);
+    const [textContacto, setContacto] = useState(""+data.Contacto);
+    const [textFacebook, setFacebook] = useState(data.Facebook);
+    const [textInstagram, setInstagram] = useState(data.Instagram); 
     console.log(data)
-    if(data !=[]){
+    
+
+    function  realizarCambios(){
+        fetch("https://upeapp.fly.dev/vendedores/edit", {
+            method: "GET",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                IDVendedor: userToken,
+                Nombres:textNombre,
+                Costo:textCosto,
+                Detalles:textDetalles,
+                Fotografia:1,
+                IDTipo: TipoID
+            }),
+        })
+            .then((response) => response.json())
+            .then((responseData) => {
+                console.log(JSON.stringify(responseData));
+                navigationN.goBack()
+            })
+            
+    }
+
+    if(data){
 
     return (
 
@@ -52,57 +91,58 @@ function MiPerfil() {
 
                     <Text style={MainScreenStyles.formTitleText}>Nombre</Text>
                     <TextInput
-                        id="nombre"
+                        id="Nombres"
                         style={MainScreenStyles.input}
                         onChangeText={newText => setNombres(newText)}
-                        value={data.Nombres}
+                        value={textNombres}
                         placeholderTextColor="black"
                     />
                     <Text style={MainScreenStyles.formTitleText}>Apellidos</Text>
                     <TextInput
-                        id="nombre"
+                        id="Apellidos"
                         style={MainScreenStyles.input}
                         onChangeText={newText => setApellidos(newText)}
-                        value={data.Apellidos}
+                        value={textApellidos}
                         placeholderTextColor="black"
                     />
                     <Text style={MainScreenStyles.formTitleText}>Correo electrónico</Text>
                     <TextInput
-                        id="nombre"
+                        id="CorreoElectronico"
                         style={MainScreenStyles.input}
-                        onChangeText={newText => setNombre(newText)}
-                        value={data.CorreoElectronico}
+                        onChangeText={newText => setCorreoElectronico(newText)}
+                        value={textCorreoElectronico}
                         placeholderTextColor="black"
                     />
 
                     <Text style={MainScreenStyles.formTitleText}>Contacto</Text>
                     <TextInput
+                        id="Contacto"
                         keyboardType={"numeric"}
                         style={MainScreenStyles.intInput}
-                        onChangeText={newText => setCosto(newText)}
-                        value={'8888-8888'}
+                        onChangeText={newText => setContacto(newText)}
+                        value={textContacto}
                         placeholderTextColor="black"
                     />
 
                     <Text style={MainScreenStyles.formTitleText}>Facebook</Text>
                     <TextInput
-                        id="nombre"
+                        id="Facebook"
                         style={MainScreenStyles.input}
-                        onChangeText={newText => setNombre(newText)}
-                        value={data.Facebook}
+                        onChangeText={newText => setFacebook(newText)}
+                        value={textFacebook}
                         placeholderTextColor="black"
                     />
 
                     <Text style={MainScreenStyles.formTitleText}>Instagram</Text>
                     <TextInput
-                        id="nombre"
+                        id="Instagram"
                         style={MainScreenStyles.input}
-                        onChangeText={newText => setNombre(newText)}
-                        value={data.Instagram}
+                        onChangeText={newText => setInstagram(newText)}
+                        value={textInstagram}
                         placeholderTextColor="black"
                     />
 
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={realizarCambios}>
                         <View style={MainScreenStyles.buttonAcept}>
                             <Text style={{ fontSize: 20, color: "white" }}>Guardar información</Text>
                         </View>
@@ -110,10 +150,6 @@ function MiPerfil() {
 
 
                 </View>
-
-
-
-
             </ScrollView>
         </View>
     );}
