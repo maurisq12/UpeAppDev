@@ -30,17 +30,16 @@ function MainScreen(props) {
     );
   }
 
-  function botonApartar() {
-   // navigationN.navigate("");
-  }
-
   function navMisProductos() {
     navigationN.navigate("MisProductos");
   }
 
-  function botonListaApartados() {
-    //navigationN.navigate("T");
+  function handleLogout(){
+    logout();
+    navigationN.navigate("Login");
+
   }
+
   function botonAdmin() {
     navigationN.navigate("Dropdown");
   }
@@ -64,7 +63,7 @@ function MainScreen(props) {
             style={{width: '100%', height: '60%', alignSelf:'center',resizeMode: 'contain'}}
           />
         </TouchableOpacity>
-        <Text style={{ textAlign: 'center',paddingBottom:25, fontSize:20,fontWeight:'bold',color:'#0D5C63' }}>Bienvenido de nuevo, *usuario*</Text>
+        <Text style={{ textAlign: 'center',paddingBottom:25, fontSize:20,fontWeight:'bold',color:'#0D5C63' }}>Bienvenido de nuevo,{userInfo.nombre}</Text>
          
         <View style={MainScreenStyles.buttonView}>
         <TouchableOpacity onPress={navMiPerfil}  >
@@ -94,7 +93,7 @@ function MainScreen(props) {
             </View>
           </TouchableOpacity>
 
-          <TouchableOpacity onPress={()=>{logout()}}>
+          <TouchableOpacity onPress={()=>{handleLogout()}}>
             <View style={MainScreenStyles.button}>
               <Text style={MainScreenStyles.buttonText}>Ajustes</Text>
               <Image

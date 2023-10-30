@@ -1,6 +1,5 @@
-import React, {useContext} from 'react';
+import React, {useContext, useState} from 'react';
 import {View,KeyboardAvoidingView,TextInput,Text,TouchableOpacity,TouchableWithoutFeedback,Button,Keyboard,Image, ActivityIndicator} from 'react-native'; 
-import {useState} from 'react';
 import loginStyle from './styles';
 import { useNavigation } from '@react-navigation/native';
 import SharedStyles from '../Shared';
@@ -9,13 +8,32 @@ import { AuthContext } from '../../context/AuthContext';
 function LoginScreen(props) {
   
   const navigationN = useNavigation();
-  const  {login} = useContext(AuthContext);
+  const  {login, userToken} = useContext(AuthContext);
+  const [errorMessage, setErrorMessage] = useState('');
 
   const [correo, setCorreo] = useState(''); 
-  const [contrasena, setContrasena] = useState(''); 
-  function loginPressed() {
-    navigationN.navigate("Menu");
+  const [contrasena, setContrasena] = useState('');
+  const [isLoading, setIsLoading] = useState(false); 
+
+  async function loginPressed() {
+    setErrorMessage('');
+    setIsLoading(true);
+    try {
+      const result = await login(correo, contrasena);
+      
+      if (result) {
+        navigationN.navigate("Menu");
+      } else {
+        console.log("Error en inicio de sesión");
+        setErrorMessage('Credenciales incorrectas. Inténtalo de nuevo.');
+      }
+    } catch (error) {
+      console.log("Error en inicio de sesión:", error);
+    } finally {
+      setIsLoading(false);
+    }
   }
+
   function registerPressed()  {
     navigationN.navigate("Register");
 
@@ -31,32 +49,33 @@ function LoginScreen(props) {
             </View>
             <View style={loginStyle.buttonView}>
             <TextInput ref={this.correoBoton}
+              value={correo}
               style={loginStyle.input}
               onChangeText={newCorreo => setCorreo(newCorreo)}
-              defaultValue={correo}
               placeholder="Correo electrónico"
               placeholderTextColor = "#0D5C63"
             />
             <TextInput ref={this.contrasenaBoton}
               secureTextEntry={true}
+              value={contrasena}
               style={loginStyle.input}
               onChangeText={newContrasena => setContrasena(newContrasena)}
-              defaultValue={contrasena}
               placeholder="Contraseña"
               width= '90%'
               placeholderTextColor = "#0D5C63"
             />
             <View style={{paddingBottom:30, alignItems:'center'}}>
-            <TouchableOpacity  onPress={()=>{login(correo,contrasena)}}>
+            <TouchableOpacity  onPress={loginPressed}>
                   <View style={[loginStyle.button,{marginBottom:0, paddingBottom:0}]}>
                     <Text style={loginStyle.buttonText}>Iniciar Sesión</Text>
                   </View>
                 </TouchableOpacity>
+                <Text style={{ color: 'red' }}>{errorMessage}</Text>
 
               <View style={{width:300, marginTop:0, paddingBottom:30 , flexDirection: 'row', paddingTop:5}}>
              
               <Text style={[loginStyle.buttonText,{fontWeight:'normal',fontSize:18,paddingLeft:30, paddingRight:0, color:'black'}]}>¿No tienes una cuenta? {'\n'} </Text>
-                <TouchableOpacity onPress={registerPressed()}>
+                <TouchableOpacity onPress={registerPressed}>
                     <Text style={[loginStyle.buttonText,{fontSize:20, paddingHorizontal:0, color:"#0D5C63" }]}>Registrate</Text>
                 </TouchableOpacity>
                 </View>
@@ -66,8 +85,5 @@ function LoginScreen(props) {
       </KeyboardAvoidingView>
     );
 }
-
-
-
 
 export default LoginScreen;

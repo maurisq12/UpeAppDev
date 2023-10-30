@@ -26,11 +26,14 @@ export const AuthProvider = ({children}) => {
             AsyncStorage.setItem('userInfo', JSON.stringify(userInfo));
             AsyncStorage.setItem('userToken', userInfo.IDVendedor.toString());
 
+            setIsLoading(false);    
+            return userToken !== null;
         })
         .catch(error=>{
             console.log(error.message)
+            setIsLoading(false);
+            return false;
         });
-        setIsLoading(false);
     }
 
     const logout = ()=>{

@@ -20,9 +20,9 @@ import { AuthContext } from "../context/AuthContext";
 const HomeStackNavigator = createNativeStackNavigator();
 
 
-function MyStack() {
+function MyStack({ userToken }) {
     return (
-        <HomeStackNavigator.Navigator initialRouteName="Menu">
+        <HomeStackNavigator.Navigator initialRouteName={userToken ? "Menu" : "Login"}>
             <HomeStackNavigator.Screen 
                 name="Menu"
                 component={MainScreen}
@@ -131,7 +131,7 @@ export default function ScreenNavigator() {
 
     return (
         <NavigationContainer>
-            {userToken !== null ? <MyStack /> : <LoginScreen/>} 
+            <MyStack userToken={userToken} />
         </NavigationContainer>
     );
 }
