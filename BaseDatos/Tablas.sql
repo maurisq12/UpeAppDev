@@ -1,5 +1,6 @@
 USE UpeAppDB
 
+SELECT * FROM Zona
 
 
 CREATE TABLE Vendedor

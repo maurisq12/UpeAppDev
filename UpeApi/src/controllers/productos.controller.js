@@ -109,5 +109,14 @@ export const eliminarProducto = async (req, res) => {
 
 }
 
+export const getProductosZona = async (req, res) => {
+    const {IDZona} = req.body
+    const con = await getConnection();
+    const resp= await con.request()
+    .input('pIDZona', sql.Int ,IDZona)
+    .query("productosPorZona @pIDZona");
+    res.json(resp.recordset)
+}
+
 
 

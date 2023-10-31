@@ -261,3 +261,20 @@ SELECT IDVendedor, Nombres,Apellidos,CorreoElectronico,Contacto,Facebook,Instagr
 FROM Vendedor
 WHERE CorreoElectronico = @pCorreoElectronico AND Contrasena = @pContrasena
 END;
+
+
+-----------------------------------------------------------Productos por Zona--------------------------------------------------------
+
+
+CREATE OR ALTER PROCEDURE productosPorZona
+@pIDZona INT
+AS
+BEGIN
+SELECT Producto.Nombre,Producto.Costo,Producto.Detalles,Producto.Fotografia,Producto.IDTipo FROM Producto
+INNER JOIN ProductosPorVendedor ON ProductosPorVendedor.IDProducto = Producto.IDProducto
+INNER JOIN Vendedor ON Vendedor.IDVendedor = ProductosPorVendedor.IDVendedor
+INNER JOIN ZonasPorVendedor ON ZonasPorVendedor.IDVendedor = Vendedor.IDVendedor
+INNER JOIN Distrito ON Distrito.IDDistrito = ZonasPorVendedor.IDZona
+WHERE Distrito.IDDistrito = @pIDZona
+END;
+
