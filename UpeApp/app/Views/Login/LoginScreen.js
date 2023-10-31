@@ -41,8 +41,8 @@ function LoginScreen(props) {
   
 
     return (
-        <KeyboardAvoidingView style={loginStyle.container}>
-          <View style={loginStyle.inner}> 
+        <View style={loginStyle.containerInit}>
+          <KeyboardAvoidingView style={loginStyle.inner}> 
             <View style={loginStyle.banner}> 
             <Image source={require('../Media/logoUpeApp.png')} style={{width:'100%',height:'60%', alignSelf:'center',resizeMode: 'contain'}}/>
             <Text style={{ textAlign: 'center',paddingTop:50, fontSize:15,fontWeight:'bold',color:'#0D5C63' }}>Ingrese los datos para acceder a su cuenta de vendedor</Text>
@@ -64,7 +64,7 @@ function LoginScreen(props) {
               width= '90%'
               placeholderTextColor = "#0D5C63"
             />
-            <View style={{paddingBottom:30, alignItems:'center'}}>
+            <View style={{alignItems:'center'}}>
             <TouchableOpacity  onPress={loginPressed}>
                   <View style={[loginStyle.button,{marginBottom:0, paddingBottom:0}]}>
                     <Text style={loginStyle.buttonText}>Iniciar Sesión</Text>
@@ -72,7 +72,7 @@ function LoginScreen(props) {
                 </TouchableOpacity>
                 <Text style={{ color: 'red' }}>{errorMessage}</Text>
 
-              <View style={{width:300, marginTop:0, paddingBottom:30 , flexDirection: 'row', paddingTop:5}}>
+              <View style={{width:300, marginTop:0, paddingBottom:30 , flexDirection: 'column', paddingTop:5}}>
              
               <Text style={[loginStyle.buttonText,{fontWeight:'normal',fontSize:18,paddingLeft:30, paddingRight:0, color:'black'}]}>¿No tienes una cuenta? {'\n'} </Text>
                 <TouchableOpacity onPress={registerPressed}>
@@ -81,8 +81,8 @@ function LoginScreen(props) {
                 </View>
                 </View>
             </View>
-          </View>
-      </KeyboardAvoidingView>
+          </KeyboardAvoidingView>
+      </View>
     );
 }
 

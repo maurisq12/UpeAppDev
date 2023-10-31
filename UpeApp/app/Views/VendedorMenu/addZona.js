@@ -21,6 +21,9 @@ function AddZona(idVendedor) {
     const [listaCant, setListaCant] = useState([]);
     const [listaProv, setListaProv] = useState([]);
     const [loading, setLoading] = useState(true)
+    const [IDDistrito, setIDDistrito] = useState(null); 
+    const [IDCanton, setIDCanton] = useState(null); 
+    const [IDProvincia, setIDProvincia] = useState(null); 
 
     useEffect(() => {
         fetch(urlProvincia, {
@@ -38,9 +41,45 @@ function AddZona(idVendedor) {
             .finally(() => setLoading(false))
     }, []);
 
-   
+    useEffect(() => {
+        fetch(urlCanton, {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                IDProvincia: IDProvincia
+            }),
+        })
+            .then((response) => response.json())
+            .then((json) => {
+                setListaCant(json);
+            })
+            .catch((error) => console.error(error))
+            .finally(() => setLoading(false))
+    }, [IDProvincia]);
 
-    
+    useEffect(() => {
+        fetch(urlDist, {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                IDCanton: IDCanton
+            }),
+        })
+            .then((response) => response.json())
+            .then((json) => {
+                setListaDist(json);
+            })
+            .catch((error) => console.error(error))
+            .finally(() => setLoading(false))
+    }, [IDCanton]);
+
+
 
     
 
@@ -49,75 +88,31 @@ function AddZona(idVendedor) {
             {id:post.IDProvincia,label:post.Nombre, value:post.IDProvincia}
         ))];
 
-    const [cantones, setCantones] = useState([]);
+    const cantones = [
+        listaCant.map((post) => (
+            {id:post.IDCanton,label:post.Nombre, value:post.IDCanton}
+        ))];
 
-    const [distritos, setDistritos] = useState([]);
+    const distritos = [
+        listaDist.map((post) => (
+            {id:post.IDDistrito,label:post.Nombre, value:post.IDDistrito}
+        ))];
 
 
 
-    const [IDDistrito, setIDDistrito] = useState(null); 
-    const [IDCanton, setIDCanton] = useState(null); 
-    const [IDProvincia, setIDProvincia] = useState(null); 
+
+
 
     function volver() {
-        navigationN.navigate("Zonas");
+        navigationN.navigate("Zonas", 1);
     }
 
-    function loadCantones(idProvincia){
-        useEffect(() => {
-            fetch(urlCanton, {
-                method: 'POST',
-                headers: {
-                    Accept: 'application/json',
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    IDProvincia: idProvincia
-                }),
-            })
-                .then((response) => response.json())
-                .then((json) => {
-                    setListaCant(json);
-                })
-                .catch((error) => console.error(error))
-                .finally(() => setLoading(false))
-        }, []);
+    
 
-        setCantones([
-            listaCant.map((post) => (
-                {id:post.IDCanton,label:post.Nombre, value:post.IDCanton}
-            ))]);
-    }
-
-    function loadDistritos(idCanton){
-        useEffect(() => {
-            fetch(urlDist, {
-                method: 'POST',
-                headers: {
-                    Accept: 'application/json',
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    IDCanton: idCanton
-                }),
-            })
-                .then((response) => response.json())
-                .then((json) => {
-                    setListaDist(json);
-                })
-                .catch((error) => console.error(error))
-                .finally(() => setLoading(false))
-        }, []);
-
-        setDistritos([
-            listaDist.map((post) => (
-                {id:post.IDDistrito,label:post.Nombre, value:post.IDDistrito}
-            ))]);
-
-        
-    }
-
-    function  agregarZona(idVendedor, idDistrito){
+    function agregarZona(idVendedor, idDistrito){
+        console.log("en agregarzonas");
+        console.log(idVendedor);
+        console.log(idDistrito);
         fetch("https://upeapp.fly.dev/zonas/add", {
             method: "POST",
             headers: {
@@ -126,60 +121,247 @@ function AddZona(idVendedor) {
             },
             body: JSON.stringify({
                 IDVendedor: idVendedor,
-                IDDistrito: idDistrito
+                IDZona: idDistrito
             }),
         })
+            .then((response) => response.json())
             .catch((error) => console.error(error))
             .then(volver)
             .finally(() => setLoading(false))
     }
-      console.log(provincias);
-      console.log(provincias[0]);
-    return (
 
-        <ScrollView style={MainScreenStyles.container}>
-            <View style={MainScreenStyles.appHeader}>
+    if (distritos != [[]]){
+        console.log("provincias: " + provincias);
+        console.log("cantones: " + cantones);
+        console.log("distritos: " + distritos);
+        return (
 
-            </View>
-            <Text style={{ textAlign: 'center', paddingBottom: 25, paddingTop: 25, fontSize: 40, fontWeight: 'bold', color: '#0D5C63' }}>Agregar zona</Text>
-            <View style={MainScreenStyles.pageView}>
+            <ScrollView style={MainScreenStyles.container}>
+                <View style={MainScreenStyles.appHeader}>
 
-                <View style={{ alignItems: 'center', justifyContent: 'space-around', }}>
-
-                    <Text style={{ fontSize: 20, fontWeight: 'bold', marginTop: 40, marginBottom: 10, color:'#AAAAAA'}}>Provincia</Text>
-                    <Dropdown
-                        style={styles.dropdown}
-                        placeholderStyle={styles.placeholderStyle}
-                        selectedTextStyle={styles.selectedTextStyle}
-                        inputSearchStyle={styles.inputSearchStyle}
-                        iconStyle={styles.iconStyle}
-
-                        data={provincias[0]}
-                        search
-                        maxHeight={300}
-                        labelField="label"
-                        valueField="value"
-                     //   placeholder= {provincias[0][0]['label']}
-                        searchPlaceholder="Buscar"
-                        value={IDProvincia}
-                        onChange={item => {
-                            setIDProvincia(item.value);
-                            loadCantones(IDProvincia);
-                        }}
-                    />
-
-                    
-                    
-
-                    <TouchableOpacity onPress={()=>agregarZona(idVendedor, IDDistrito)}>
-                        <View style={MainScreenStyles.buttonAcept}>
-                            <Text style={{ fontSize: 20, color: "white" }}>Agregar</Text>
-                        </View>
-                    </TouchableOpacity>
                 </View>
-            </View>
-        </ScrollView>
-    );
+                <Text style={{ textAlign: 'center', paddingBottom: 25, paddingTop: 25, fontSize: 40, fontWeight: 'bold', color: '#0D5C63' }}>Agregar zona</Text>
+                <View style={MainScreenStyles.pageView}>
+
+                    <View style={{ alignItems: 'center', justifyContent: 'space-around', }}>
+
+                        <Text style={{ fontSize: 20, fontWeight: 'bold', marginTop: 40, marginBottom: 10, color:'#AAAAAA'}}>Provincia</Text>
+                        <Dropdown
+                            style={styles.dropdown}
+                            placeholderStyle={styles.placeholderStyle}
+                            selectedTextStyle={styles.selectedTextStyle}
+                            inputSearchStyle={styles.inputSearchStyle}
+                            iconStyle={styles.iconStyle}
+
+                            data={provincias[0]}
+                            search
+                            maxHeight={300}
+                            labelField="label"
+                            valueField="value"
+                            placeholder= {"Provincia"}
+                            searchPlaceholder="Buscar"
+                            value={IDProvincia}
+                            onChange={item => {
+                                setIDProvincia(item.value);
+                                //loadCantones(IDProvincia);
+                            }}
+                        />
+
+                        <Text style={{ fontSize: 20, fontWeight: 'bold', marginTop: 40, marginBottom: 10, color:'#AAAAAA'}}>Canton</Text>
+                        <Dropdown
+                            style={styles.dropdown}
+                            placeholderStyle={styles.placeholderStyle}
+                            selectedTextStyle={styles.selectedTextStyle}
+                            inputSearchStyle={styles.inputSearchStyle}
+                            iconStyle={styles.iconStyle}
+
+                            data={cantones[0]}
+                            search
+                            maxHeight={300}
+                            labelField="label"
+                            valueField="value"
+                            placeholder= {"Cantón"}
+                            searchPlaceholder="Buscar"
+                            value={IDCanton}
+                            onChange={item => {
+                                setIDCanton(item.value);
+                               // loadDistritos(IDCanton);
+                            }}
+                        />
+
+                        <Text style={{ fontSize: 20, fontWeight: 'bold', marginTop: 40, marginBottom: 10, color:'#AAAAAA'}}>Distrito</Text>
+                        <Dropdown
+                            style={styles.dropdown}
+                            placeholderStyle={styles.placeholderStyle}
+                            selectedTextStyle={styles.selectedTextStyle}
+                            inputSearchStyle={styles.inputSearchStyle}
+                            iconStyle={styles.iconStyle}
+
+                            data={distritos[0]}
+                            search
+                            maxHeight={300}
+                            labelField="label"
+                            valueField="value"
+                            placeholder= {"Distrito"}
+                            searchPlaceholder="Buscar"
+                            value={IDDistrito}
+                            onChange={item => {
+                                setIDDistrito(item.value);
+                            }}
+                        />
+
+                        
+                        
+
+                        <TouchableOpacity onPress={()=>agregarZona(idVendedor["route"]["params"], IDDistrito)}>
+                            <View style={MainScreenStyles.buttonAcept}>
+                                <Text style={{ fontSize: 20, color: "white" }}>Agregar</Text>
+                            </View>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+            </ScrollView>
+        )
+    }
+    else if (cantones != [[]]){
+        console.log("provincias: " + provincias);
+        console.log("cantones: " + cantones);
+        return (
+
+            <ScrollView style={MainScreenStyles.container}>
+                <View style={MainScreenStyles.appHeader}>
+
+                </View>
+                <Text style={{ textAlign: 'center', paddingBottom: 25, paddingTop: 25, fontSize: 40, fontWeight: 'bold', color: '#0D5C63' }}>Agregar zona</Text>
+                <View style={MainScreenStyles.pageView}>
+
+                    <View style={{ alignItems: 'center', justifyContent: 'space-around', }}>
+
+                        <Text style={{ fontSize: 20, fontWeight: 'bold', marginTop: 40, marginBottom: 10, color:'#AAAAAA'}}>Provincia</Text>
+                        <Dropdown
+                            style={styles.dropdown}
+                            placeholderStyle={styles.placeholderStyle}
+                            selectedTextStyle={styles.selectedTextStyle}
+                            inputSearchStyle={styles.inputSearchStyle}
+                            iconStyle={styles.iconStyle}
+
+                            data={provincias[0]}
+                            search
+                            maxHeight={300}
+                            labelField="label"
+                            valueField="value"
+                            placeholder= {0}
+                            searchPlaceholder="Buscar"
+                            value={IDProvincia}
+                            onChange={item => {
+                                setIDProvincia(item.value);
+                                //loadCantones(IDProvincia);
+                            }}
+                        />
+
+                        <Text style={{ fontSize: 20, fontWeight: 'bold', marginTop: 40, marginBottom: 10, color:'#AAAAAA'}}>Canton</Text>
+                        <Dropdown
+                            style={styles.dropdown}
+                            placeholderStyle={styles.placeholderStyle}
+                            selectedTextStyle={styles.selectedTextStyle}
+                            inputSearchStyle={styles.inputSearchStyle}
+                            iconStyle={styles.iconStyle}
+
+                            data={cantones[0]}
+                            search
+                            maxHeight={300}
+                            labelField="label"
+                            valueField="value"
+                            placeholder= {0}
+                            searchPlaceholder="Buscar"
+                            value={IDCanton}
+                            onChange={item => {
+                                setIDCanton(item.value);
+                               // loadDistritos(IDCanton);
+                            }}
+                        />
+
+                        
+                        
+
+                        
+                    </View>
+                </View>
+            </ScrollView>
+        )
+    }
+    else if (provincias != [[]]){
+        console.log("provincias: " + provincias);
+        return (
+
+            <ScrollView style={MainScreenStyles.container}>
+                <View style={MainScreenStyles.appHeader}>
+
+                </View>
+                <Text style={{ textAlign: 'center', paddingBottom: 25, paddingTop: 25, fontSize: 40, fontWeight: 'bold', color: '#0D5C63' }}>Agregar zona</Text>
+                <View style={MainScreenStyles.pageView}>
+
+                    <View style={{ alignItems: 'center', justifyContent: 'space-around', }}>
+
+                        <Text style={{ fontSize: 20, fontWeight: 'bold', marginTop: 40, marginBottom: 10, color:'#AAAAAA'}}>Provincia</Text>
+                        <Dropdown
+                            style={styles.dropdown}
+                            placeholderStyle={styles.placeholderStyle}
+                            selectedTextStyle={styles.selectedTextStyle}
+                            inputSearchStyle={styles.inputSearchStyle}
+                            iconStyle={styles.iconStyle}
+
+                            data={provincias[0]}
+                            search
+                            maxHeight={300}
+                            labelField="label"
+                            valueField="value"
+                            placeholder= {0}
+                            searchPlaceholder="Buscar"
+                            value={IDProvincia}
+                            onChange={item => {
+                                setIDProvincia(item.value);
+                                loadCantones(IDProvincia);
+                            }}
+                        />
+
+                        
+                        
+
+                        
+                    </View>
+                </View>
+            </ScrollView>
+        )
+    }
+    else{
+        return (
+
+            <ScrollView style={MainScreenStyles.container}>
+                <View style={MainScreenStyles.appHeader}>
+    
+                </View>
+                <Text style={{ textAlign: 'center', paddingBottom: 25, paddingTop: 25, fontSize: 40, fontWeight: 'bold', color: '#0D5C63' }}>Agregar zona</Text>
+                <View style={MainScreenStyles.pageView}>
+    
+                    <View style={{ alignItems: 'center', justifyContent: 'space-around', }}>
+    
+                        <Text style={{ fontSize: 20, fontWeight: 'bold', marginTop: 40, marginBottom: 10, color:'#AAAAAA'}}>Provincia</Text>
+                       
+    
+                        
+                        
+    
+                        <TouchableOpacity onPress={()=>agregarZona(idVendedor, IDDistrito)}>
+                            <View style={MainScreenStyles.buttonAcept}>
+                                <Text style={{ fontSize: 20, color: "white" }}>Agregar</Text>
+                            </View>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+            </ScrollView>
+        )
+    };
 }
 
 export default AddZona;

@@ -1,51 +1,24 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { Switch,Alert, Text, Image,View, TextInput,TouchableOpacity,StyleSheet, ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { Dropdown } from 'react-native-element-dropdown';
-import { SearchBar } from '@rneui/themed';
 import MainScreenStyles from '../MainMenu/styles';
-import SharedStyles from '../Shared';
-import AntDesign from '@expo/vector-icons/AntDesign';
 
 
 
 function DetalleProducto(route) {
     const navigationN = useNavigation();
-
-    
-
-    //Mauricio S
-    const [data, setData] = useState([])
-    const [lista, setLista] = useState([])
-
-    const [loading, setLoading] = useState(true)
-    const url = "https://upeapp.fly.dev/productos/tipos";
-
-    useEffect(() => {
-        fetch(url)
-            .then((response) => response.json())
-            .then((json) => {setData(json),setLista(json)})
-            .catch((error) => console.error(error))
-            .finally(() => setLoading(false))
-    }, [])
-
-    const DDTipos =[
-        lista.map((post) => (
-            {id:post.IDTipoProducto,label:post.Nombre, value:post.IDTipoProducto}
-        ))];
-
     const prod = route.route.params
-
-    const [value, setValue] = useState(null); ;
-
     const [textNombre, setNombre] = useState(prod.Nombre);
     const [textCosto, setCosto] = useState(""+prod.Costo);
     const [textTipo, setTipo] = useState(""+prod.Tipo);
     const [textDetalles, setDetalles] = useState(""+prod.Detalles);
-    const [TipoID, setTipoID] = useState(prod.IDTipo);  
+    const [productoId, setproductoId] = useState(prod.IDProducto);
 
-
-
+    function botonVendedor(){
+      navigationN.navigate("DetalleVendedor",productoId)
+      
+    }
+    
 
     return (
 
@@ -73,9 +46,9 @@ function DetalleProducto(route) {
                     <Text style={{ fontSize: 22, fontWeight: 'bold', marginBottom: 10,marginTop:20 }}>{textDetalles}</Text>
 
 
-                    <TouchableOpacity >
+                    <TouchableOpacity onPress={botonVendedor}>
                         <View style={MainScreenStyles.buttonAcept}>
-                            <Text style={{ fontSize: 20, color: "white" }}>Vendedor</Text>
+                            <Text style={{ fontSize: 20, color: "white" }}>Detalles de vendedor</Text>
                         </View>
                     </TouchableOpacity>
 

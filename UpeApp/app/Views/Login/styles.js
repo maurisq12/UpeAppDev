@@ -8,10 +8,9 @@ const loginStyle = StyleSheet.create({
       borderRadius:10,
       backgroundColor:'white',
       fontSize: SharedStyles.buttonsSizeFont,
-      flex : 0.2,
+      flex : 0.3,
       elevation: 20,
       shadowColor: 'grey',
-
     },
     buttonView: {
       flex:0.5,
@@ -37,6 +36,12 @@ const loginStyle = StyleSheet.create({
         flex: 1,
         backgroundColor :SharedStyles.colorBG,
       },
+      containerInit: {
+        minHeight:820,
+        maxHeight: 820,
+        flex: 1,
+        backgroundColor :SharedStyles.colorBG,
+      },
       banner:{
         flex: 0.3,
         backgroundColor :SharedStyles.colorBG,
@@ -44,6 +49,7 @@ const loginStyle = StyleSheet.create({
         justifyContent:'center',
       },
       inner: {
+        width: '100%',
         padding: 24,
         flex: 1,
         backgroundColor :SharedStyles.colorBG,

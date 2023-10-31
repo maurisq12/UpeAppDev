@@ -5,9 +5,11 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import LoginScreen from "./Login/LoginScreen";
 import Comprador from "./Comprador/Comprador";
 import DetalleProducto from "./Comprador/DetalleProducto";
+import DetalleVendedor from "./Comprador/DetalleVendedor";
 import MainScreen from "./MainMenu/MainScreen";
 import AdminMenu from "./VendedorMenu/AdminMenu";
 import MisProductos from "./VendedorMenu/MisProductos";
+import LandingPage from "./Login/LandingPage";
 import RegisterScreen from "./Register/RegisterScreen";
 import EditProducto from "./VendedorMenu/editProducto";
 import agregarProducto from "./VendedorMenu/agregarProducto";
@@ -22,7 +24,7 @@ const HomeStackNavigator = createNativeStackNavigator();
 
 function MyStack({ userToken }) {
     return (
-        <HomeStackNavigator.Navigator initialRouteName={userToken ? "Menu" : "Login"}>
+        <HomeStackNavigator.Navigator initialRouteName={userToken ? "Menu" : "LandingPage"}>
             <HomeStackNavigator.Screen 
                 name="Menu"
                 component={MainScreen}
@@ -30,7 +32,13 @@ function MyStack({ userToken }) {
                     headerShown: false
                 }}
             />
-
+            <HomeStackNavigator.Screen
+                name="LandingPage"
+                component={LandingPage}
+                options={{
+                    headerShown: false
+                }}
+            />
             <HomeStackNavigator.Screen
                 name="Login"
                 component={LoginScreen}
@@ -38,6 +46,7 @@ function MyStack({ userToken }) {
                     headerShown: false
                 }}
             />
+
             
             <HomeStackNavigator.Screen
                 name="AdminMenu"
@@ -96,6 +105,14 @@ function MyStack({ userToken }) {
             <HomeStackNavigator.Screen
                 name="DetalleProducto"
                 component={DetalleProducto}
+                options={{
+                    headerShown: false
+                }}
+
+            />
+            <HomeStackNavigator.Screen
+                name="DetalleVendedor"
+                component={DetalleVendedor}
                 options={{
                     headerShown: false
                 }}

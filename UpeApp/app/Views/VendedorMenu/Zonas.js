@@ -45,6 +45,7 @@ function Zonas(props) {
 
     const [loading, setLoading] = useState(true);
     const url = 'https://upeapp.fly.dev/zonas/uno';
+    const urlDelete = 'https://upeapp.fly.dev/zonas/delete';
 
     useEffect(() => {
         fetch(url, {
@@ -64,6 +65,74 @@ function Zonas(props) {
             .catch((error) => console.error(error))
             .finally(() => setLoading(false));
     }, []);
+
+    useEffect(() => {
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                IDVendedor: userToken
+            }),
+        })
+            .then((response) => response.json())
+            .then((json) => {
+                setLista(json);
+            })
+            .catch((error) => console.error(error))
+            .finally(() => setLoading(false));
+    }, [props]);
+
+    function eliminarZona(id){
+        fetch(urlDelete, {
+            method: "POST",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                IDVendedor: userToken,
+                IDZona: id,
+    
+            }),
+        })
+            .then((response) => response.json())
+           // .then((json) => {setLista(json)})
+            .catch((error) => console.error(error))
+            .finally(() => setLoading(false))
+            
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                IDVendedor: userToken
+            }),
+        })
+            .then((response) => response.json())
+            .then((json) => {
+                setLista(json);
+            })
+            .catch((error) => console.error(error))
+            .finally(() => setLoading(false));
+        
+    }
+
+    const alertaEliminar = (distrito, id) =>
+        Alert.alert('¿Eliminar', distrito+["?"] , [
+            {
+            text: 'Cancelar',
+            onPress: () => console.log('Cancel Pressed'),
+            },
+            {text: 'Eliminar', 
+            onPress: () => eliminarZona(id)},
+        ]);
+
+        
 
     return (
         <View style={MainScreenStyles.container}>
@@ -98,6 +167,13 @@ function Zonas(props) {
                                     {post.Provincia}, {post.Canton}, {post.Distrito}
                                 </Text>
                                 <Text style={{ fontSize: 15 }}> Agregado: {formatDate(post.FechaAgregado)}</Text>
+                                    <View style={styles.container}>
+                                        <TouchableOpacity onPress={() => alertaEliminar(post.Distrito, post.IDZona)}>
+                                            <View style={styles}>
+                                                <Text style={{ fontSize: 20, color: "white", textAlign:'center'}}>Eliminar</Text>
+                                            </View>
+                                        </TouchableOpacity>
+                                    </View>
                             </View>
                         ))
                     )}
@@ -108,3 +184,18 @@ function Zonas(props) {
 }
 
 export default Zonas;
+
+const styles = StyleSheet.create({
+    padding: 10,
+    fontSize: 22,
+    fontWeight: 'bold',
+    color: SharedStyles.colorDark,
+    opacity:1.0,
+    borderRadius: 8,
+    marginTop:13,
+    alignItems: 'center',
+    flexDirection: 'row',
+    width: "30%",
+    backgroundColor: "#cc0000"
+  });
+  
