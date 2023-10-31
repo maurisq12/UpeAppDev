@@ -5,6 +5,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import LoginScreen from "./Login/LoginScreen";
 import Comprador from "./Comprador/Comprador";
 import DetalleProducto from "./Comprador/DetalleProducto";
+import DetalleVendedor from "./Comprador/DetalleVendedor";
 import MainScreen from "./MainMenu/MainScreen";
 import AdminMenu from "./VendedorMenu/AdminMenu";
 import MisProductos from "./VendedorMenu/MisProductos";
@@ -96,6 +97,14 @@ function MyStack({ userToken }) {
             <HomeStackNavigator.Screen
                 name="DetalleProducto"
                 component={DetalleProducto}
+                options={{
+                    headerShown: false
+                }}
+
+            />
+            <HomeStackNavigator.Screen
+                name="DetalleVendedor"
+                component={DetalleVendedor}
                 options={{
                     headerShown: false
                 }}

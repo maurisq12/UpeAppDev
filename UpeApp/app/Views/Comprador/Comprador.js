@@ -17,7 +17,7 @@ function Comprador(props) {
     const [lista, setLista] = useState([])
     const [listaTipos, setListaTipos] = useState([])
 
-    const [textTipo, setTipo] = useState([]);
+    const [textTipo, setTipo] = useState("Seleccionar Categoria");
     const [textDetalles, setDetalles] = useState([]);
     const [TipoID, setTipoID] = useState([]);  
 
@@ -80,7 +80,6 @@ function Comprador(props) {
         }
       }
 
-
     return (
 
         <View style={MainScreenStyles.container}>
@@ -89,22 +88,7 @@ function Comprador(props) {
             </View>
             <Text style={{ textAlign: 'center',marginTop: 25, paddingBottom: 25, fontSize: 40, fontWeight: 'bold', color: '#0D5C63' }}>Productos disponibles</Text>
 
-
             <View style={MainScreenStyles.pageView}>
-
-                <View style={{ width: "90%", alignSelf: "center" }}>
-                    <SearchBar
-                        placeholderTextColor={"black"}
-                        inputStyle={{ color: "black" }}
-                        searchIcon={{ color: "black" }}
-                        cancelIcon={{ color: "black" }}
-                        containerStyle={{ borderRadius: 10, backgroundColor: "#0D5C63", borderBottomColor: "white", borderTopColor: "white" }}
-                        inputContainerStyle={{ backgroundColor: SharedStyles.colorBG }}
-                        placeholder="Buscar..."
-                        onChangeText={newText => filtrarLista(newText)}
-                        value={search}
-                    />
-                </View>
                 <Dropdown
                         style={styles.dropdown}
                         placeholderStyle={styles.placeholderStyle}
@@ -128,6 +112,19 @@ function Comprador(props) {
                     />
 
                 <ScrollView >
+                <View style={{ width: "90%", alignSelf: "center" }}>
+                    <SearchBar
+                        placeholderTextColor={"black"}
+                        inputStyle={{ color: "black" }}
+                        searchIcon={{ color: "black" }}
+                        cancelIcon={{ color: "black" }}
+                        containerStyle={{ borderRadius: 10, backgroundColor: "#0D5C63", borderBottomColor: "white", borderTopColor: "white" }}
+                        inputContainerStyle={{ backgroundColor: SharedStyles.colorBG }}
+                        placeholder="Buscar..."
+                        onChangeText={newText => filtrarLista(newText)}
+                        value={search}
+                    />
+                </View>
                     {
                         loading ? (<Text> Cargando... </Text>) : (
                             lista.map((post) => (
@@ -141,7 +138,6 @@ function Comprador(props) {
 
                                     </View>
                                 </TouchableOpacity>
-
                             )) 
                         )}
                 </ScrollView>

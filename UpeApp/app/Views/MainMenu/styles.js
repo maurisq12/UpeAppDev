@@ -96,7 +96,7 @@ const MainScreenStyles = StyleSheet.create({
         marginBottom: 30,
         marginTop: 30,
         marginLeft: 30,
-        color:'#AAAAAA'
+        
       },
 
       input: {
@@ -108,6 +108,17 @@ const MainScreenStyles = StyleSheet.create({
         borderBottomColor: 'grey',
         borderBottomWidth: 0.5,
         textAlignVertical: "top"
+  
+      },
+      input2: {
+        height: 50,
+        width: '90%',
+        paddingLeft:15,
+        fontSize: SharedStyles.buttonsSizeFont,
+        textAlign: "center",
+        borderBottomColor: 'grey',
+        borderBottomWidth: 0.5,
+        color: 'black'
   
       },
       intInput: {
