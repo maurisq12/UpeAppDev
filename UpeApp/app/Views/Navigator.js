@@ -9,6 +9,7 @@ import DetalleVendedor from "./Comprador/DetalleVendedor";
 import MainScreen from "./MainMenu/MainScreen";
 import AdminMenu from "./VendedorMenu/AdminMenu";
 import MisProductos from "./VendedorMenu/MisProductos";
+import LandingPage from "./Login/LandingPage";
 import RegisterScreen from "./Register/RegisterScreen";
 import EditProducto from "./VendedorMenu/editProducto";
 import agregarProducto from "./VendedorMenu/agregarProducto";
@@ -23,7 +24,7 @@ const HomeStackNavigator = createNativeStackNavigator();
 
 function MyStack({ userToken }) {
     return (
-        <HomeStackNavigator.Navigator initialRouteName={userToken ? "Menu" : "Login"}>
+        <HomeStackNavigator.Navigator initialRouteName={userToken ? "Menu" : "LandingPage"}>
             <HomeStackNavigator.Screen 
                 name="Menu"
                 component={MainScreen}
@@ -31,7 +32,13 @@ function MyStack({ userToken }) {
                     headerShown: false
                 }}
             />
-
+            <HomeStackNavigator.Screen
+                name="LandingPage"
+                component={LandingPage}
+                options={{
+                    headerShown: false
+                }}
+            />
             <HomeStackNavigator.Screen
                 name="Login"
                 component={LoginScreen}
@@ -39,6 +46,7 @@ function MyStack({ userToken }) {
                     headerShown: false
                 }}
             />
+
             
             <HomeStackNavigator.Screen
                 name="AdminMenu"

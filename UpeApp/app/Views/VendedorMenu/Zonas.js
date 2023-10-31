@@ -170,7 +170,7 @@ function Zonas(props) {
                                     <View style={styles.container}>
                                         <TouchableOpacity onPress={() => alertaEliminar(post.Distrito, post.IDZona)}>
                                             <View style={styles}>
-                                                <Text style={{ fontSize: 13, color: "white"}}>Eliminar</Text>
+                                                <Text style={{ fontSize: 20, color: "white", textAlign:'center'}}>Eliminar</Text>
                                             </View>
                                         </TouchableOpacity>
                                     </View>
@@ -195,7 +195,7 @@ const styles = StyleSheet.create({
     marginTop:13,
     alignItems: 'center',
     flexDirection: 'row',
-    width: 73,
+    width: "30%",
     backgroundColor: "#cc0000"
   });
   

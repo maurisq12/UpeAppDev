@@ -59,6 +59,11 @@ const MainScreenStyles = StyleSheet.create({
       borderTopLeftRadius:20,
       borderTopRightRadius: 20,
     },
+     containerFiltros:{
+      flexDirection: 'row',
+      justifyContent:"space-around"
+
+     },
     buttonView: {
       backgroundColor:SharedStyles.colorBG,
       alignSelf: 'center',

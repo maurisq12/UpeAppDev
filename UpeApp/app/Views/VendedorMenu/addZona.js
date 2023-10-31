@@ -158,7 +158,7 @@ function AddZona(idVendedor) {
                             maxHeight={300}
                             labelField="label"
                             valueField="value"
-                            placeholder= {0}
+                            placeholder= {"Provincia"}
                             searchPlaceholder="Buscar"
                             value={IDProvincia}
                             onChange={item => {
@@ -180,7 +180,7 @@ function AddZona(idVendedor) {
                             maxHeight={300}
                             labelField="label"
                             valueField="value"
-                            placeholder= {0}
+                            placeholder= {"Cantón"}
                             searchPlaceholder="Buscar"
                             value={IDCanton}
                             onChange={item => {
@@ -202,7 +202,7 @@ function AddZona(idVendedor) {
                             maxHeight={300}
                             labelField="label"
                             valueField="value"
-                            placeholder= {0}
+                            placeholder= {"Distrito"}
                             searchPlaceholder="Buscar"
                             value={IDDistrito}
                             onChange={item => {

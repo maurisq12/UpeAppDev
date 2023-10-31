@@ -95,7 +95,7 @@ function MainScreen(props) {
 
           <TouchableOpacity onPress={()=>{handleLogout()}}>
             <View style={MainScreenStyles.button}>
-              <Text style={MainScreenStyles.buttonText}>Ajustes</Text>
+              <Text style={MainScreenStyles.buttonText}>Cerrar sesión</Text>
               <Image
             source={require(('../Media/ajustes.png'))}
             style={{width:'20%', height: '100%',resizeMode: 'contain'}}/>
